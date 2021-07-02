@@ -1,0 +1,3 @@
+.form-group.note-form-group.note-group-select-from-files {
+    display: none;  /*Hide Summernote's image-upload input.*/
+}

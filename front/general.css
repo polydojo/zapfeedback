@@ -1,0 +1,82 @@
+/* START Font */
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+/* END Font */
+
+
+/* START iPhone-auto-zoom-fix */
+@media (max-width: 767px) {
+    .form-control {
+        font-size: 16px;
+    }
+}
+/* END iPhone-auto-zoom-fix */
+
+
+/* START .container */
+    body.container, div.container {
+        max-width: 760px; /* 760 < 768; also: 760 - (15 + 15) = 730 = 728 + (1 + 1);    Was: 720px;*/
+        /* XXX:Note: Tmp/for prototyping. */
+    }
+/* END .container */
+
+
+/* START span.btn */
+    span.btn { cursor: pointer; }                               /* In BS4, this seems to be explicitly req'd. */
+/* END span.btn */
+
+
+/* START img */
+    img { max-width: 100%; }                                    /* A minimal sprinkle of responsive, inherited by Markdown etc. */
+/* END img */
+
+
+/* START Spinner Module */
+    .spinner {
+        position: fixed;
+        width: 100%;
+        top: 5em;
+        left: 0;
+        text-align: center;
+        z-index: 1051;
+        /*
+            A note on .spinner's z-index:
+            =============================
+            
+            Bootstrap modals have a z-index of 1050.
+            We've used 1051 for the spinner, which is the
+            smallest whole number greater than 1050.
+            
+            Higher z-indices used by Bootstrap are
+            1060 (for pop-overs) and 1070 (for tooltips)
+            respectively.
+            
+            The .spinner, currently, has purposely been
+            given a z-index that's just necessary for
+            appearing on top of modals. In the future,
+            you may need to increase the z-index as needed.
+        */
+    }
+    .spinnerInner {
+        background-color: lightYellow;
+        padding: 0.35em 0.70em;
+        border-radius: 8px;
+        border: 1px solid gainsboro;
+        font-size: 1.125em;
+    }
+/* END Spinner Module */
+
+
+/* START OVERRIDE PLACEHOLDER COLOR */
+    .form-control::-moz-placeholder {
+      color: silver;                                        /* BS3 default::  color: #999; */
+      opacity: 1;                                           /* BS3 default::  opacity: 1; */
+    }
+    .form-control:-ms-input-placeholder {
+      color: silver;                                        /* BS3 default::  color: #999; */
+    }
+    .form-control::-webkit-input-placeholder {
+      color: silver;                                        /* BS3 default::  color: #999; */
+    }
+/* START OVERRIDE PLACEHOLDER COLOR */

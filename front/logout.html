@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="shortcut icon" href="/front/img/logo/logo-192.png">
+    <link rel="apple-touch-icon" href="/front/img/logo/logo-192.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/front/helpers.css">
+    <link rel="stylesheet" href="/front/general.css">
+    
+    <title>ZapFeedback | Log Out</title>
+</head>
+<body class="container">
+    <br>
+    <div class="" style="font-size: 20px;">
+        <img class="verticalMiddle" src="/front/img/logo/logo-192.png" width="20">
+        <span class="verticalMiddle">ZapFeedback</span>
+    </div>
+    <hr>
+    
+    <div class="spinner">
+        <span class="spinnerInner">
+            <i class="fa fa-fw fa-spinner fa-spin"></i>
+            <span class="spinnerFlash">Loading ...</span>
+        </span>
+    </div>
+    
+    <div id="logout_main" style="display: none;">
+        <h3 class="unbold">You've Logged Out</h3>
+        <p></p>
+        <p>Want to log back in? Visit: <code><a href="/login">/login</a></code></p>
+    </div>
+    
+    <footer class="small gray">
+        <br><br><hr class="mb-2">
+        Powered by <!-- TODO: Set .ghRepoUrl's href via js. -->
+        <a class="unsetColor underline ghRepoUrl" href="https://github.com/polydojo/zapfeedback" target="_blank">ZapFeedback</a>,
+        a product from
+        <a class="unsetColor underline" href="https://www.polydojo.com" target="_blank">Polydojo</a>.
+    </footer>
+    
+    <script src="/front/dist/logout-bundle.js"></script>
+</body>
+</html>

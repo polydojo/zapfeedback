@@ -1,0 +1,600 @@
+/* LISTS */
+.flatList { list-style-type: none; padding-left: 0; } .flatList li { display: inline; }
+
+/* MARGIN */
+.noMargin { margin: 0; }
+.margin1em { margin: 1em; }
+.margin2em { margin: 2em; }
+.margin3em { margin: 3em; }
+.margin1-2em { margin: 0.5em; }
+.margin1-3em { margin: 0.33em; }
+.margin1-4em { margin: 0.25em; }
+.margin1-5em { margin: 0.2em; }
+.margin1-8em { margin: 0.125em; }
+.margin1px { margin: 1px; }
+.margin2px { margin: 2px; }
+.margin3px { margin: 3px; }
+.margin4px { margin: 4px; }
+.margin5px { margin: 5px; }
+.margin8px { margin: 8px; }
+.margin10px { margin: 10px; }
+.margin16px { margin: 16px; }
+.margin20px { margin: 20px; }
+.marginTop1px { margin-top: 1px; }
+.marginTop2px { margin-top: 2px; }
+.marginTop4px { margin-top: 4px; }
+.marginTop8px { margin-top: 8px; }
+.marginTop16px { margin-top: 16px; }
+.marginBottom1px { margin-bottom: 1px; }
+.marginBottom2px { margin-bottom: 2px; }
+.marginBottom4px { margin-bottom: 4px; }
+.marginBottom5px { margin-bottom: 5px; }
+.marginBottom8px { margin-bottom: 8px; }
+.marginBottom10px { margin-bottom: 10px; }
+.marginBottom16px { margin-bottom: 16px; }
+.noMarginTop { margin-top: 0; }
+.noMarginBottom { margin-bottom: 0; }
+.noMarginLeft { margin-left: 0; }
+.noMarginRight { margin-right: 0; }
+.autoMargin {
+    /* MUST BE DEFINED AFTER OTHER MARGIN RULES */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* PADDING */
+.noPadding { padding: 0; }
+.noPaddingLeft { padding-left: 0;}
+.noPaddingRight { padding-right: 0; }
+.noPaddingTop { padding-top: 0; }
+.noPaddingBottom { padding-bottom: 0; }
+.padding1em { padding: 1em; }
+.padding2em { padding: 2em; }
+.padding1rem { padding: 1rem; }
+.padding2rem { padding: 2rem; }
+.paddingHalfRem { padding: 0.5rem; }
+.paddingQuarterRem { padding: 0.25rem; }
+.padding1px { padding: 1px; }
+.padding2px { padding: 2px; }
+.padding4px { padding: 4px; }
+.padding6px { padding: 6px; }
+.padding8px { padding: 8px; }
+.padding10px { padding: 10px; }
+.padding12px { padding: 12px; }
+.paddingRight1px { padding-right: 1px; }
+.paddingRight2px { padding-right: 2px; }
+.paddingRight4px { padding-right: 4px; }
+.paddingRight8px { padding-right: 8px; }
+.paddingRight10px { padding-right: 10px; }
+.paddingRight12px { padding-right: 12px; }
+.paddingLeft1px { padding-left: 1px; }
+.paddingLeft2px { padding-left: 2px; }
+.paddingLeft4px { padding-left: 4px; }
+.paddingLeft8px { padding-left: 8px; }
+.paddingLeft10px { padding-left: 10px; }
+.paddingLeft12px { padding-left: 12px; }
+
+/* (Padding) Gutter Width. (Bootstrap's default is 15px;) */
+.halfGutter { padding: 0 8px; }
+.quarterGutter { padding: 0 4px; }
+.eighthGutter { padding: 0 2px; }
+.fullGutter { padding: 0 15px; }
+.doubleGutter { padding: 0 30px; }
+.tripleGutter { padding: 0 45px; }
+.gutter1px { padding: 0 1px; }
+.gutter2px { padding: 0 2px; } /* AKA eighthGutter */
+.gutter3px { padding: 0 3px; }
+.gutter4px { padding: 0 4px; } /* AKA quarterGutter */
+.gutter5px { padding: 0 5px; }
+.gutter6px { padding: 0 6px; }
+.gutter7px { padding: 0 7px; }
+.gutter8px { padding: 0 8px; } /* AKA halfgutter */
+.noGutter { padding: 0; } /*AKA noPadding */
+.noGutterLeft { padding-left: 0; }
+.noGutterRight { padding-right: 0; }
+.fullGutterLeft, .fullLeftGutter, .restoreGutterLeft, .restoreLeftGutter { padding-left: 15px; }
+.fullGutterRight, .fullRightGutter, .restoreGutterRight, .restoreRightGutter { padding-right: 15px; }
+
+/* (BOOTSTRAP) HR Thickness */
+.hr2px { border-top-width: 2px; border-radius: 2px; }
+.hr3px { border-top-width: 3px; border-radius: 3px; }
+.hr4px { border-top-width: 4px; border-radius: 4px; }
+.hr5px { border-top-width: 5px; border-radius: 5px; }
+.hr6px { border-top-width: 6px; border-radius: 6px; }
+.hr8px, hr.thick { border-top-width: 8px; border-radius: 8px; }
+.hr10px { border-top-width: 10px; border-radius: 10px; }
+
+/* INDENTATION */
+.indent1em { margin-left: 1em; }
+.indent2em { margin-left: 2em; }
+.indent1px { margin-left: 1px; }
+.indent2px { margin-left: 2px; }
+.indent4px { margin-left: 4px; }
+.indent8px { margin-left: 8px; }
+.indent16px { margin-left: 16px; }
+ul.zeroIndent, ul.antiIndent, ul.noIndent, ul.unIndent { padding-left: 0; }             /* List bullets appear outside the ul. */
+ul.indent1em,  ul.flatIndent, ul.borderIndent { margin-left: 0; padding-left: 1em; }    /* List bullets appear along the ul's border. */
+ul.indent2em,  ul.someIndnet { margin-left: 0; padding-left: 2em; }                     /* List bullets appear slightly inside the ul.*/
+ol.zeroIndent, ol.antiIndent, ol.noIndent, ol.unIndent { padding-left: 0; }             /* List numbers appear outside the ol. */
+ol.indent1em,  ol.flatIndent, ol.borderIndent { margin-left: 0; padding-left: 1em; }    /* List numbers appear along the ol's border. */
+ol.indent2em,  ol.someIndnet { margin-left: 0; padding-left: 2em; }                     /* List numbers appear slightly inside the ol.*/
+
+/* DISPLAY */
+.inlineBlock { display: inline-block; }
+.inline { display: inline; }
+.block { display: block; }
+.visibilityOn, .visible { visibility: visible; }
+.visibilityOff, .visibilityHidden, .invisible { visibility: hidden; }
+.displayTable { display: table; }
+.tableRow { display: table-row; }
+.tableCell { display: table-cell; }
+
+/* LINE HEIGHT */
+.lineHeight8px { line-height: 8px; }
+.lineHeight16px { line-height: 16px; }
+.lineHeight24px { line-height: 24px; }
+    .lineHeight5px { line-height: 5px; }
+.lineHeight10px { line-height: 10px; }
+.lineHeight15px { line-height: 15px; }
+.lineHeight20px { line-height: 20px; }
+.lineHeight25px { line-height: 25px; }
+.lineHeight30px { line-height: 30px; }
+    .lineHeight1em { line-height: 1em; }
+.lineHeight2em { line-height: 2em; }
+.lineHeight3em { line-height: 3em; }
+
+/* MAX HEGIHT */
+.maxHeight40px { max-height: 40px; }
+.maxHeight60px { max-height: 60px; }
+
+/* OPACITY */
+.opacity10 { opacity: 0.10; }
+.opacity15 { opacity: 0.15; }
+.opacity20 { opacity: 0.20; }
+.opacity25 { opacity: 0.25; }
+.opacity30 { opacity: 0.30; }
+.opacity33 { opacity: 0.33; }
+.opacity35 { opacity: 0.35; }
+.opacity40 { opacity: 0.40; }
+.opacity50 { opacity: 0.50; }
+.opacity60 { opacity: 0.60; }
+.opacity65 { opacity: 0.65; }
+.opacity66 { opacity: 0.66; }
+.opacity70 { opacity: 0.70; }
+.opacity75 { opacity: 0.75; }
+.opacity80 { opacity: 0.80; }
+.opacity85 { opacity: 0.85; }
+.opacity90 { opacity: 0.90; }
+.opacity95 { opacity: 0.95; }
+
+/* FONT SIZES */
+.xSmall { font-size: x-small; }
+.small { font-size: small; }
+.large { font-size: large; }
+.xLarge { font-size: x-large; }
+.font12px { font-size: 12px; }
+.font14px { font-size: 14px; }
+.font16px { font-size: 16px; }
+.font70Percent { font-size: 70%; }
+.font75Percent { font-size: 75%; }
+.font80Percent { font-size: 80%; }
+.font85Percent { font-size: 85%; }
+.font90Percent { font-size: 90%; }
+.font95Percent { font-size: 95%; }
+.font100Percent { font-size: 100%; }
+.font105Percent { font-size: 105%; }
+.font110Percent { font-size: 110%; }
+.font120Percent { font-size: 120%; }
+.font1rem { font-size: 1rem; }
+
+/* FONT STYLES */
+.bold { font-weight: bold; }
+.bolder { font-weight: bolder; }
+.unbold { font-weight: normal; }
+.underline { text-decoration: underline; }
+.noUnderline, a.noUnderline:hover { text-decoration: none; }
+.strike, .strikethrough, .lineThrough { text-decoration: line-through; }
+.italic { font-style: italic; }
+.monospace { font-family: monospace; }
+.monaco { font-family: Monaco, Consolas, "Courier New", monospace; }
+.courier { font-family: Courier, monospace; }
+.sansSerif { font-family: sans-serif; }
+.arial { font-family: Arial, sans-serif; }
+.serif { font-family: serif; }
+.comicSans { font-family: "Comic Sans MS", cursive, sans-serif; }
+
+/* TEXT COLORS */
+.red { color: red; }
+.darkRed { color: darkRed; }
+.crimson { color: crimson; }
+.indianRed { color: indianRed; }
+.fireBrick { color: fireBrick; }
+.maroon { color: maroon; }
+.brown { color: brown; }
+.burlyWood { color: burlyWood; }
+.orange { color: orange; }
+.orangeRed { color: orangeRed; }
+.tomato { color: tomato; }
+.coral { color: coral; }
+.lightCoral { color: lightCoral; }
+.lightSalmon { color: lightSalmon; }
+.salmon { color: salmon; }
+.darkSalmon { color: darkSalmon; }
+.darkOrange { color: darkOrange; }
+.yellow { color: yellow; }
+.stickyYellow { color: #feff9c; }
+.gold { color: gold; }
+.goldenRod { color: goldenRod; }
+.blue { color: blue; }
+.darkBlue { color: darkBlue; }
+.mediumBlue {color: mediumBlue; }
+.primaryBlue { color: #337AB7; }
+.dodgerBlue { color: dodgerBlue; }
+.royalBlue { color: royalBlue; }
+.deepSkyBlue { color: deepSkyBlue; }
+.lightBlue { color: lightBlue; }
+.lightSkyBlue { color: lightSkyBlue; }
+.azure { color: azure; }
+.lightSteelBlue { color: lightSteelBlue; }
+.skyBlue { color: skyBlue; }
+.navy { color: navy; }
+.purple { color: purple; }
+.orchid { color: orchid; }
+.lavender { color: lavender; }
+.mediumOrchid { color: mediumOrchid; }
+.green { color: green; }
+.lime { color: lime; }
+.limeGreen { color: limeGreen; }
+.lightGreen { color: lightGreen; }
+.paleGreen { color: paleGreen; }
+.yellowGreen { color: yellowGreen; }
+.springGreen { color: springGreen; }
+.mediumSpringGreen { color: mediumSpringGreen; }
+.mediumSeaGreen { color: mediumSeaGreen; }
+.seaGreen { color: seaGreen; }
+.lightSeaGreen { color: lightSeaGreen; }
+.darkGreen { color: darkGreen; }
+.forestGreen { color: forestGreen; }
+.white { color: white; }
+.black { color: black; }
+.lightGray { color: lightGray; }
+.silver { color: silver; }
+.darkGray { color: darkGray; }
+.gray { color: gray; }
+.dimGray { color: dimGray; }
+.lightSlateGray { color: lightSlateGray; }
+.slateGray{ color: slateGray; }
+.darkSlateGray { color: darkSlateGray; }
+.peru { color: peru; }
+.unsetColor, a.unsetColor, a .unsetColor { color: unset; }
+
+/* FLAT UI (MIT) COLORS */
+.flatColorTurquoise { color: #1abc9c; }
+.flatColorEmerland { color: #2ecc71; }
+.flatColorPeterriver { color: #3498db; }
+.flatColorAmethyst { color: #9b59b6; }
+.flatColorWetasphalt { color: #34495e; }
+.flatColorGreensea { color: #16a085; }
+.flatColorNephritis { color: #27ae60; }
+.flatColorBelizehole { color: #2980b9; }
+.flatColorWisteria { color: #8e44ad; }
+.flatColorMidnightblue { color: #2c3e50; }
+.flatColorSunflower { color: #f1c40f; }
+.flatColorCarrot { color: #e67e22; }
+.flatColorAlizarin { color: #e74c3c; }
+.flatColorClouds { color: #ecf0f1; }
+.flatColorConcrete { color: #95a5a6; }
+.flatColorOrange { color: #f39c12; }
+.flatColorPumpkin { color: #d35400; }
+.flatColorPomegranate { color: #c0392b; }
+.flatColorSilver { color: #bdc3c7; }
+.flatColorAsbestos { color: #7f8c8d; }
+
+/* BACKGROUND COLORS */
+.yellowBack { background-color: yellow; }
+.stickyYellowBack { background-color: #feff9c; }
+.goldBack { background-color: gold; }
+.lightYellowBack { background-color: lightYellow; }
+.lemonChiffonBack { background-color: lemonChiffon; }
+.cyan { color: cyan; }
+.lightCyan { color: lightCyan; }
+.cyanBack { background-color: cyan; }
+.lightCyanBack { background-color: lightCyan; }
+.orangeBack { background-color: orange; }
+.orangeRedBack { background-color: orangeRed; }
+.darkOrangeBack { background-color: darkOrange; }
+.redBack { background-color: red; }
+.crimsonBack { background-color: crimson; }
+.indianRedBack { background-color: indianRed; }
+.maroonBack { background-color: maroon; }
+.brownBack { background-color: brown; }
+.burlyWoodBack { background-color: burlyWood; }
+.blueBack { background-color: blue; }
+.azureBack { background-color: azure; }
+.primaryBlueBack { background-color: #337AB7; }
+.navyBack { background-color: navy; }
+.dodgerBlueBack { background-color: dodgerBlue; }
+.royalBlueBack { background-color: royalBlue; }
+.purpleBack { background-color: purple; }
+.lavenderBack { background-color: lavender; }
+.aquaBack { background-color: aqua; }
+.darkGreenBack { background-color: darkGreen; }
+.greenBack { background-color: green; }
+.springGreenBack { background-color: springGreen; }
+.mediumSpringGreenBack { background-color: mediumSpringGreen; }
+.lightGreenBack { background-color: lightGreen; }
+.limeGreenBack { background-color: limeGreen; }
+.mediumSeaGreenBack { background-color: mediumSeaGreen; }
+.seaGreenBack { background-color: seaGreen; }
+.limeBack { background-color: lime; }
+.whiteBack { background-color: white; }
+.blackBack { background-color: black; }
+.grayBack { background-color: gray; }
+.darkGrayBack { background-color: darkGray; }
+.silverBack { background-color: silver; }
+.lightGrayBack { background-color: lightGray; }
+.ghostWhiteBack { background-color: ghostWhite; }
+.cornSilkBack { background-color: cornSilk; }
+.peruBack { background-color: peru; }
+.transparentBack { background-color: transparent; }
+
+/* FLAT UI (MIT) BACKGROUND COLORS */
+.floatColorBackTurquoise { background-color: #1abc9c; }
+.floatColorBackEmerland { background-color: #2ecc71; }
+.floatColorBackPeterriver { background-color: #3498db; }
+.floatColorBackAmethyst { background-color: #9b59b6; }
+.floatColorBackWetasphalt { background-color: #34495e; }
+.floatColorBackGreensea { background-color: #16a085; }
+.floatColorBackNephritis { background-color: #27ae60; }
+.floatColorBackBelizehole { background-color: #2980b9; }
+.floatColorBackWisteria { background-color: #8e44ad; }
+.floatColorBackMidnightblue { background-color: #2c3e50; }
+.floatColorBackSunflower { background-color: #f1c40f; }
+.floatColorBackCarrot { background-color: #e67e22; }
+.floatColorBackAlizarin { background-color: #e74c3c; }
+.floatColorBackClouds { background-color: #ecf0f1; }
+.floatColorBackConcrete { background-color: #95a5a6; }
+.floatColorBackOrange { background-color: #f39c12; }
+.floatColorBackPumpkin { background-color: #d35400; }
+.floatColorBackPomegranate { background-color: #c0392b; }
+.floatColorBackSilver { background-color: #bdc3c7; }
+.floatColorBackAsbestos { background-color: #7f8c8d; }
+
+
+/* BACKGROUND WASH (SEMI-TRANSPARENT) */
+.blackWash25 {
+    background-color: rgba(0,0,0,0.25);
+}
+.blackWash33 {
+    background-color: rgba(0,0,0,0.33);
+}
+.blackWash50 {
+    background-color: rgba(0,0,0,0.50);
+}
+.whiteWash25 {
+    background-color: rgba(255,255,255,0.25);
+}
+.whiteWash33 {
+    background-color: rgba(255,255,255,0.33);
+}
+.whiteWash50 {
+    background-color: rgba(255,255,255,0.50);
+}
+
+/* TEXT SHADOW */
+.grayStroke {
+    text-shadow:
+        -1px -1px 0 gray,
+        1px -1px 0 gray,
+        -1px 1px 0 gray,
+        1px 1px 0 gray;
+}
+.noStroke {
+    text-shadow: none;
+}
+.blackStroke1px {
+    text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+}
+.blackStroke2px {
+    text-shadow:
+        -2px -2px 0 black,
+        2px -2px 0 black,
+        -2px 2px 0 black,
+        2px 2px 0 black;
+}
+.blackStroke3px {
+    text-shadow:
+        -3px -3px 0 black,
+        3px -3px 0 black,
+        -3px 3px 0 black,
+        3px 3px 0 black;
+}
+.blackStroke4px {
+    text-shadow:
+        -4px -4px 0 black,
+        4px -4px 0 black,
+        -4px 4px 0 black,
+        4px 4px 0 black;
+}
+
+/* TEXT ALIGNMENT */
+.centerText, .textCenter, .alignCenter, .alignCenter { text-align: center; }
+.justifyText, .textJustify, .alignJustify, .justifyAlign { text-align: justify; }
+.rightText, .textRight, .alignRight, .rightAlign { text-align: right; }
+.leftText, .textLeft, .alignLeft, .leftAlign { text-align: left; }
+.verticalMiddle { vertical-align: middle; }
+.textTop, .verticalTextTop { vertical-align: text-top; }
+.verticalTop { vertical-align: top; }
+.superscript, .superScript { vertical-align: super; }
+.subscript, .subScript { vertical-align: sub; }
+
+/* BOX SHADOW */
+.noBoxShadow, .noShadow {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+/* FLOATING */
+.floatRight { float: right; }
+.floatLeft { float: left; }
+
+/* BORDER & ITS ROUNDNESS */
+.borderless, .noBorder { border: none; }
+.border1px, .border1pxBlack, .border1pxSolidBlack { border: 1px solid black; }
+.noRadius: { border-radius: 0; }
+.circularBorder { border-radius: 100em; }
+.radius1px { border-radius: 1px; }
+.radius2px { border-radius: 2px; }
+.radius4px { border-radius: 4px; }
+.radius6px { border-radius: 6px; }
+.radius8px { border-radius: 8px; }
+.radius1em { border-radius: 1em; }
+.radius2em { border-radius: 2em; }
+.radius3em { border-radius: 3em; }
+.radius4em { border-radius: 4em; }
+.radius1rem { border-radius: 1rem; }
+.radius2rem { border-radius: 2rem; }
+.radiusHalfRem { border-radius: 0.5rem; }
+.radiusQuarterRem { border-radius: 0.25rem; }
+.radius50Percent { border-radius: 50%; }
+.borderBox { box-sizing: border-box; } /* MISC */
+
+/* BORDERS */
+.border1pxBlack { border: 1px solid black; }
+.border1pxGray { border: 1px solid gray; }
+.border1pxLightGray { border: 1px solid lightGray; }
+.border1pxDarkGray { border: 1px solid darkGray; }
+
+/* WORD WRAP */
+.breakWord { word-wrap: break-word; }
+
+/* WIDTH */
+.fullWidth { width: 100%; }
+.halfWidth { width: 50%; }
+.quarterWidth { width: 25%; }
+.autoWidth { width: auto; }
+.vw100 { width: 100vw; }
+
+/* ALT MAX-WIDTH FOR CONTAINERS (Based on BS4 container widths.) */
+.container-max-sm, body.container-max-sm, div.container-max-sm { max-width: 540px; }
+.container-max-md, body.container-max-md, div.container-max-md { max-width: 720px; }
+.container-max-lg, body.container-max-lg, div.container-max-lg { max-width: 960px; }
+.container-max-xl, body.container-max-xl, div.container-max-xl { max-width: 1140px; }
+
+/* HEIGHT */
+.vh100 { height: 100vh; }
+.vh95 { height: 95vh; }
+.vh90 { height: 90vh; }
+.vh80 { height: 80vh; }
+.vh70 { height: 70vh; }
+.vh60 { height: 60vh; }
+.vh50 { height: 50vh; }
+.vh40 { height: 40vh; }
+.vh30 { height: 30vh; }
+.vh20 { height: 20vh; }
+.vh10 { height: 10vh; }
+
+/* FIXED POSITIONING */
+.fixed { position: fixed; }
+.top1em { top: 1em; }
+.top2em { top: 2em; }
+.bottom1em { bottom: 1em; }
+.bottom2em { bottom: 2em; }
+.right1em { right: 1em; }
+.right2em { right: 2em; }
+.left1em { left: 1em; }
+.left2em { left: 2em; }
+.topLeft { top: 1em; left: 0; }
+.topRight { top: 1em; right: 0; }
+.bottomLeft { bottom: 1em; left: 0; }
+.bottomRight { bottom: 1em; right: 0; }
+.top0, .top { top: 0; }
+.bottom0, .bottom { bottom: 0; }
+.left0 { left: 0; }
+.right0 { right: 0; }
+
+/* SCALING */
+.scaleTo50Percent { transform: scale(0.5); }
+.scaleTo60Percent { transform: scale(0.6); }
+.scaleTo70Percent { transform: scale(0.7); }
+.scaleTo75Percent { transform: scale(0.75); }
+.scaleTo80Percent { transform: scale(0.8); }
+.scaleTo85Percent { transform: scale(0.85); }
+.scaleTo90Percent { transform: scale(0.9); }
+.scaleTo95Percent { transform: scale(0.95); }
+.scaleTo105Percent { transform: scale(1.05); }
+.scaleTo110Percent { transform: scale(1.1); }
+.scaleTo120Percent { transform: scale(1.2); }
+.scaleTo130Percent { transform: scale(1.3); }
+.scaleTo140Percent { transform: scale(1.4); }
+.scaleTo150Percent { transform: scale(1.5); }
+
+.scaleXTo110Percent { transform: scaleX(1.1); }
+.scaleXTo115Percent { transform: scaleX(1.15); }
+.scaleXTo120Percent { transform: scaleX(1.2); }
+.scaleXTo130Percent { transform: scaleX(1.3); }
+.scaleXTo140Percent { transform: scaleX(1.4); }
+.scaleXTo150Percent { transform: scaleX(1.5); }
+
+.scaleYTo110Percent { transform: scaleY(1.1); }
+.scaleYTo115Percent { transform: scaleY(1.15); }
+.scaleYTo120Percent { transform: scaleY(1.2); }
+.scaleYTo130Percent { transform: scaleY(1.3); }
+.scaleYTo140Percent { transform: scaleY(1.4); }
+.scaleYTo150Percent { transform: scaleY(1.5); }
+
+
+/* CURSOR */
+.cursorPointer { cursor: pointer; }
+.cursorNotAllowed, .cursorBan { cursor: not-allowed; }
+.cursorGrab { cursor: grab; }
+.cursorGrabbing, .cursorGrabing { cursor: grabbing; }
+
+/* TEXT TRANSFORMATION */
+.capitalize, .capitalise, .caps, .CAPS, .allCaps, .uppercase, .upperCase { text-transform: uppercase; }
+.lowercase, .lowerCase { text-transform: lowercase; }
+
+/* OVERFLOW */
+.overflowHidden { overflow: hidden; }
+.overflowVisible { overflow: visible; }
+.overflowScroll { overflow: scroll; }
+.overflowAuto { overflow: auto; }
+
+/* ELLIPSIS */
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* MISC */
+.preWrap {
+    /* Ref: https://css-tricks.com/snippets/css/make-pre-text-wrap/ */
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+.pre {
+    white-space: pre;
+}
+.noSelect {
+    /*
+    Some mobile browsers will select text if the user long presses on the screen.
+    This is super useful for copying and pasting, but can be frustrating if a
+    user didn’t intend to select any text.
+
+    You can prevent this from happening using the user-select CSS property.
+    */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
