@@ -16,8 +16,11 @@ qs.serviceTagMap = {
 }
 qs.serviceList = _.keys(qs.serviceTagMap)
 
-// Observables & Computeds: ////////////////////////////////
+// Observables: ////////////////////////////////////////////
 qs.o.questionId = uk.observable(null)
+qs.o.service = uk.observable('')
+
+// Computeds: //////////////////////////////////////////////
 qs.c.question = uk.computed(
   function () {
     const questionId = qs.o.questionId.get()
@@ -50,7 +53,6 @@ qs.c.generalHtmlSnippet = uk.computed(
   },
   [qs.c.question]
 )
-qs.o.service = uk.observable('')
 qs.c.serviceHtmlSnippet = uk.computed(
   function () {
     const service = qs.o.service()
@@ -99,9 +101,10 @@ qs.onSubmit_saveQuestion = async function (event) {
   await misc.alert('Saved!')
 }
 
+// Close: //////////////////////////////////////////////////
 qs.close = function () {
   qs.o.questionId.set(null)
-  $('#summernote_bodyArea').summernote('destroy')
+  qs.o.service.set('')
 }
 
 module.exports = qs

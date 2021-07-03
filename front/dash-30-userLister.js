@@ -9,11 +9,11 @@ const { uk, app } = require('./dash-00-def.js')
 // RouteApp:
 const ul = { id: 'userLister', o: {}, c: {} }
 
-// Observables & Computeds:
+// Observables & Computeds: ////////////////////////////////
 ul.o.isInviteFormVisible = uk.observableBool(false)
 ul.c.userList = app.o.userMap.list // Alias, snap-friendly.
 
-// Open:
+// Open: ///////////////////////////////////////////////////
 ul.open = function () {
   ul.fetchUserListIfReqd()
 }
@@ -35,7 +35,7 @@ ul.fetchUserList = async function () {
   return fulResp.userList
 }
 
-// Inviting:
+// Inviting: ///////////////////////////////////////////////
 ul.onClick_toggleInviteForm = function () {
   ul.o.isInviteFormVisible.toggle()
 }
@@ -76,7 +76,7 @@ ul.onClick_reinvite = async function (thatUserId) {
   )
 }
 
-// Re/Deactivating:
+// Re/Deactivating: ////////////////////////////////////////
 ul.onClick_toggle_isDeactivated = async function (thatUserId) {
   const thatUser = app.o.userMap.get()[thatUserId]
   console.assert(thatUser, 'Assert `thatUser` exists.')
@@ -92,7 +92,7 @@ ul.onClick_toggle_isDeactivated = async function (thatUserId) {
   await misc.alert('Done! User account ' + z + 'eactivated.')
 }
 
-// Close:
+// Close: //////////////////////////////////////////////////
 ul.close = function () {
   ul.o.isInviteFormVisible.set(false)
 }

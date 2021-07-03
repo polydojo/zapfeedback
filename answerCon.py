@@ -51,4 +51,25 @@ def post_answerCon_fetchAnswerList():
     return {"answerList": answerList}
 
 
+@app.post("/answerCon/supplyProp")
+def post_answerCon_supplyProp():
+    jdata = bu.get_jdata(ensure="answerId, prop")
+    prop = jdata.prop  # Local shorthand.
+    assert prop in ["email", "comment"]
+    assert prop in jdata and jdata[prop]
+    answer = answerMod.getAnswer(jdata.answerId)
+    assert bu.claim(answer)
+    if answer[prop]:
+        if answer[prop] == jdata[prop]:
+            return {"status": "success"}
+        else:
+            return bu.abort("Property mismatch error.")
+    # ==> answer[prop] is falsy.
+    assert answer[prop] == ""
+    answer.update({prop: jdata[prop]})
+    assert answerMod.validateAnswer(answer)
+    answerMod.replaceAnswer(answer)
+    return {"status": "success"}
+
+
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

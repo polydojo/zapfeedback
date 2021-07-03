@@ -28,22 +28,40 @@
         </span>
     </div>
     
-    <h3 class="">Thanks for responding!</h3>
-    <p class="gray">
-        Your response has been successfully recorded. Please feel free to add additional comments below.
-    </p>
-    <br>
-    <form id="thanksForm">
-        <div class="form-group">
-            <label>Any additional comments? &nbsp;<span class="darkGray">(Optional)</span></label>
-            <textarea name="comment" class="form-control" placeholder="Additional comments ..."></textarea>
-        </div>
-        <div>
-            <button class="btn btn-primary btn-sm">
-                <i class="fa fa-fw fa-chevron-right"></i> Submit
-            </button>
-        </div>
-    </form>
+    <div id="step0_askEmail" style="display:none;">
+        <div class="bold large">Please enter your email address:</div>
+        <form id="askEmailForm" class="form-inline">
+              <input type="email" name="email" class="form-control" placeholder="you@example.com">
+              &nbsp;
+              <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+    <div id="step1_askComment" style="display:none;">
+        <h3 class="">Thanks for responding!</h3>
+        <p class="gray">
+            Your response has been successfully recorded. Please feel free to add additional comments below.
+        </p>
+        <br>
+        <form id="askCommentForm">
+            <div class="form-group">
+                <label>Any additional comments? &nbsp;<span class="darkGray">(Optional)</span></label>
+                <textarea name="comment" class="form-control" placeholder="Additional comments ..."></textarea>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm">
+                    <i class="fa fa-fw fa-chevron-right"></i> Submit
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <div id="step2_bye" style="display:none;">
+        <h3 class="">All done! Thanks for commenting!</h3>
+        <p class="gray">
+            Your comment has been successfully recorded. Please feel free to close this page. Thanks again!
+        </p>
+    </div>
     
     <footer class="small gray">
         <br><br><hr class="mb-2">

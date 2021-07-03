@@ -51,7 +51,7 @@ ql.onClick_newQuestion = async function () {
   })
 }
 
-// Close:
+// Close: //////////////////////////////////////////////////
 ql.close = function () {
   $.noop()
 }
