@@ -25,7 +25,8 @@ X.RUN_PORT = envi.read("PORT")
 
 X.APP_SCHEME = envi.read("ENFORCE_SCHEME")
 X.APP_NETLOC = envi.read("ENFORCE_NETLOC")
-X.SITE_URL = "%s://%s" % (X.APP_SCHEME, X.APP_NETLOC)
+U.SITE_URL = "%s://%s" % (X.APP_SCHEME, X.APP_NETLOC)
+# ^-- SITE_URL is req'd @ cli for question sharing.
 
 X.DEBUG = bool(envi.read("DEBUG").upper() == "TRUE")
 # ^-- XXX:Note: Case-insensitive comparison with __string__ "TRUE".
@@ -91,8 +92,8 @@ X.MEMFILE_MAX = 30 * 1000 * 1000
 X.USER_EMAIL_INDEX_NAME = "user_email_index"
 
 X.CURRENT_USER_V = 0
-X.CURRENT_SURVEY_V = 0
-X.CURRENT_REPLY_V = 0
+X.CURRENT_QUESTION_V = 0
+X.CURRENT_ANSWER_V = 0
 
 X.EMAIL_RE = r"^\S+@\S+\.\S+$"
 X.PASSWORD_RE = r".{12,}"

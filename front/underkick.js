@@ -723,7 +723,8 @@ var underkick = function (ukConfig) {
         };
         ob.deepSet = function (newInnerVal, atPath) {                           // `atPath` should be relative to `ob`.
             var refined, oldInnerVal;
-            refined = puk.refineModelToPenultimate(atPath, ob);
+            refined = puk.refineModelToPenultimate(atPath, ob.get());
+            // ^-- `ob.get()` is req'd for first-level-deep setting.
             oldInnerVal = refined.penultimate[refined.lastKey];
             if (oldInnerVal == newInnerVal && puk.isPrimitive(newInnerVal)) {
                 return ob;  // Short ckt.
@@ -1202,37 +1203,14 @@ var underkick = function (ukConfig) {
         }
         lastKey = _.last(keyList);
         initialKeyList = _.initial(keyList);
-        console.assert(lastKey && initialKeyList.length, "uk.refineToPenultimate: Assert lastKey and initalKeyList.");
-        penultimate = puk.refineModel(initialKeyList, obj);
+        console.assert(lastKey, "uk.refineToPenultimate: Assert lastKey and initalKeyList.");
+        if (initialKeyList.length) {
+            penultimate = puk.refineModel(initialKeyList, obj);
+        } else {
+            penultimate = obj // Req'd for first-level-deep in-observable setting.
+        }
         return {
             "penultimate": penultimate,
-            "lastKey": lastKey,
-        };
-    };
-    puk.refineModelForDeepSet = function (pathOrKeyList, obj) {
-        var keyList, firstKey, lastKey, midKeyList,
-            oFirstChild, penultimateObj;
-        obj = obj || puk.firstRender.model;
-        if (_.isString(pathOrKeyList)) {
-            keyList = puk.pathToKeyList(pathOrKeyList);
-        } else {
-            keyList = pathOrKeyList;
-        }
-        
-        firstKey = keyList[0];
-        lastKey = keyList[keyList.length - 1];
-        midKeyList = keyList.slice(0, keyList.length - 1);
-        
-        oFirstChild = obj[firstKey];
-        console.assert(oFirstChild.isObservable, "uk.refineModelForDeepSet: Assert first child is observable.");
-        console.assert(! oFirstChild.isComputed, "uk.refineModelForDeepSet: Assert first child is non-computed.");
-        
-        penultimateObj = puk.refineModel(midKeyList, oFirstChild, false);   // 3rd param, isRecursiveCall = false 
-        console.assert(! penultimateObj.isObservable, "uk.refineModelForDeepSet: Assert penultimate is non-observable.");
-        
-        return {
-            "oFirstChild": oFirstChild,
-            "penultimateObj": penultimateObj,
             "lastKey": lastKey,
         };
     };

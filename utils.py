@@ -171,7 +171,7 @@ qs.dumps = lambda d: urllib.parse.urlencode(d, safe="", quote_via=urllib.parse.q
 isStr = lambda x: type(x) is str
 isStringy = lambda x: type(x) in [str, bytes]
 isList = lambda x: type(x) is list
-isListy = lambda x: type(x) in [list, tuple]
+isListy = lambda x: isinstance(x, (list, tuple))
 isDict = lambda x: type(x) is dict
 isDicty = lambda x: isinstance(x, dict)
 isBool = lambda x: type(x) is bool

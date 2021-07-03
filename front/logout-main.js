@@ -4,7 +4,7 @@ const misc = require('./misc.js')
 
 const hitLogout = async function () {
   misc.spinner.flash('Logging out ...')
-  const resp = await misc.postJson('/userCon/logout', {})
+  await misc.postJson('/userCon/logout', {})
   $('#logout_main').show()
   misc.spinner.stop()
 }

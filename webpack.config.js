@@ -7,7 +7,8 @@ module.exports = {
     login: './front/login-main.js',
     logout: './front/logout-main.js',
     setup: './front/setup-main.js',
-    join: './front/join-main.js'
+    join: './front/join-main.js',
+    thanks: './front/thanks-main.js'
   },
   output: {
     filename: '[name]-bundle.js',

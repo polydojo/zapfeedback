@@ -27,8 +27,8 @@ const app = {
 }
 
 app.o.userMap = uk.observableDocMap('fname')
-app.o.surveyMap = uk.observableDocMap('title')
-app.o.replyMap = uk.observableDocMap('createdAt')
+app.o.questionMap = uk.observableDocMap('shortName')
+app.o.answerMap = uk.observableDocMap('createdAt')
 
 app.o.currentUserId = uk.observable(null)
 app.c.currentUser = uk.computed(

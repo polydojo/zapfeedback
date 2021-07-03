@@ -9,7 +9,10 @@ const bootbox = require('bootbox')
 const misc = require('./misc.js')
 const { uk, app } = require('./dash-00-def.js')
 
-app.surveyLister = require('./dash-10-surveyLister.js')
+app.questionLister = require('./dash-10-questionLister.js')
+app.questionEditor = require('./dash-12-questionEditor.js')
+app.questionSharer = require('./dash-14-questionSharer.js')
+app.answerLister = require('./dash-16-answerLister.js')
 app.userLister = require('./dash-30-userLister.js')
 
 app.detectLogin = async function () {

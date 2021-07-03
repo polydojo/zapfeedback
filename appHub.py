@@ -15,8 +15,7 @@ from appDef import app
 import staticCon  # 1st import, as it does static, emailing etc. configs.
 
 import userCon
-
-# import queCon
-# import ansCon
+import questionCon
+import answerCon
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
