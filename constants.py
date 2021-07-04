@@ -49,7 +49,7 @@ X.VIEW_DIR_PATHS = [
 ]
 
 X.SHORTCUT_MAP = {
-    # "/": "/front/login.html",
+    "/": "/front/login.html",
     "/setup": "/front/setup.html",
     "/login": "/front/login.html",
     "/logout": "/front/logout.html",

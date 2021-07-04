@@ -34,6 +34,39 @@ al.c.answerList = uk.computed(
   },
   [al.c.question, app.o.answerMap]
 )
+al.c.statList = uk.computed(
+  function () {
+    const question = al.c.question.get()
+    if (!question) { return [] } // Short ckt.
+    const answerList = al.c.answerList.get()
+    if (!answerList.length) { return [] } // Short ckt.
+    // ^-- Short ckt'ing avoids dividing by zero.
+    const statMap = {}
+    // ^-- Mapping from choiceId to relevant stats/info.
+    // Init statMap:
+    _.each(question.choiceList, function (choice) {
+      statMap[choice._id] = {
+        choiceId: choice._id,
+        count: 0,
+        choiceText: choice.text || '(blank)',
+        percent: 0
+      }
+    })
+    // Update statMap:
+    _.each(answerList, function (answer) {
+      const cid = answer.choiceId // Local shorthand.
+      console.log(misc.pretty(statMap))
+      console.log(cid)
+      console.assert(_.has(statMap, cid), 'Assert `cid` in statMap.')
+      statMap[cid].count += 1
+      statMap[cid].percent = (
+        100 * statMap[cid].count / answerList.length
+      )
+    })
+    return _.values(statMap)
+  },
+  [al.c.question, al.c.answerList]
+)
 
 // Open: ///////////////////////////////////////////////////
 al.open = async function (info) {

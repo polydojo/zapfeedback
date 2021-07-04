@@ -193,10 +193,10 @@
                 <% if (m.questionSharer.o.service) { %>
                     <br>
                     <h5>Rich Text</h5>
-                    <div style="border: 1px solid black" class="p-2">{{{m.questionSharer.c.serviceHtmlSnippet}}}</div>
+                    <div class="border1px p-2">{{{m.questionSharer.c.serviceHtmlSnippet}}}</div>
                     <br>
                     <h5>HTML Code</h5>
-                    <pre style="border: 1px solid black" class="p-2">{{m.questionSharer.c.serviceHtmlSnippet}}</pre>
+                    <pre class="border1px p-2">{{m.questionSharer.c.serviceHtmlSnippet}}</pre>
                 <% } %>
                     
             <% } %><!-- end route guard -->
@@ -218,10 +218,47 @@
                             <i class="fa fa-fw fa-share"></i> Share
                         </a>
                     </span>
-                    <h3>Answers</h3>
-                    <p>(Question: {{m.answerLister.c.question.text}})</p>                    
+                    <h3>Responses</h3>
                     <br>
                 </header>
+                
+                <h5>Question:</h5>
+                <p>{{m.answerLister.c.question.text}}</p>
+                <h5>Number of Responses: {{m.answerLister.c.answerList.length}}</h5>
+                
+                <br>
+
+                <h5>Statistical Breakdown:</h5>
+                <% if (m.answerLister.c.statList.length === 0) { %>
+                    <div class="border1px p-2 centerText">
+                        <br><br>
+                            No meaningful statistics to show yet.
+                        <br><br>
+                    </div>
+                <% } else { %>
+                    <table class="table table-sm table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Choice</th>
+                                <th>Count</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% _.each(m.answerLister.c.statList, function (stat) { %>
+                                <tr>
+                                    <td>{{stat.choiceText}}</td>
+                                    <td class="rightAlign">{{stat.count}} <!--of {{m.answerLister.c.answerList.length}}--></td>
+                                    <td class="rightAlign">{{stat.percent.toFixed(2)}}%</td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                <% } %>
+                
+                <br>
+                
+                <h5>Individual Responses:</h5>
                 <table class="table table-sm table-bordered table-striped small">
                     <thead>
                         <tr>
