@@ -40,7 +40,7 @@ qe.open = async function (info) {
 qe.onClick_addChoice = async function () {
   misc.spinner.start('Adding ...')
   const { choice } = await misc.postJson('/questionCon/buildChoice', {})
-  await misc.alertJson(choice)
+  // await misc.alertJson(choice)
   const liveQ = qe.o.liveQuestion.get()
   liveQ.choiceList.push(choice) // Non-observable update
   qe.o.liveQuestion.set(liveQ) // Update observably
@@ -48,8 +48,13 @@ qe.onClick_addChoice = async function () {
 }
 
 qe.onSubmit_saveQuestion = async function (event) {
+  const copyQ = uk.deepCopy(qe.o.liveQuestion.get())
+  _.each(copyQ.choiceList, function (choice) {
+    choice.weight = Number(choice.weight)
+    // ^-- Convert string to number, in non-aliased copyQ.
+  })
   const dataToSend = {
-    question: qe.o.liveQuestion.get()
+    question: copyQ
   }
   misc.spinner.start('Saving ...')
   const resp = await misc.postJson('/questionCon/updateQuestion', dataToSend)

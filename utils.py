@@ -246,7 +246,7 @@ def isPrimitive(x):
 def deepCopy(x):
     if isPrimitive(x):
         return x
-    if type(x) in [list, tuple]:
+    if type(x) in [list, tuple, dotsi.List]:
         return map(deepCopy, x)
     if type(x) in [dict, dotsi.Dict]:
         return type(x)(

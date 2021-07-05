@@ -8,6 +8,32 @@ const { uk, app } = require('./dash-00-def.js')
 
 const al = { id: 'answerLister', o: {}, c: {} }
 
+al.getMs = function (nums) {
+  // Helper for calculating mean, median, mode, min, & max.
+  nums.sort() // Req'd for finding median.
+  let total = 0
+  const countMap = {}
+  let mode = null
+  let modeCount = 0
+  _.each(nums, function (num) {
+    total += num
+    countMap[num] = (countMap[num] || 0) + 1
+    if (countMap[num] > modeCount) {
+      mode = num // <-- WRT multiple modes, only largest returned.
+      modeCount = countMap[num]
+    }
+  })
+  const mean = total / nums.length
+  const midUpIndex = Math.floor(nums.length / 2)
+  let median = 0
+  if (nums.length % 2 === 0) {
+    median = (nums[midUpIndex - 1] + nums[midUpIndex]) / 2
+  } else {
+    median = nums[midUpIndex]
+  }
+  return { mean, median, mode, min: nums[0], max: nums[nums.length - 1] }
+}
+
 // Observables & Computeds: ////////////////////////////////
 al.o.questionId = uk.observable(null)
 // ^-- {queId: true} for each queId for which answers are fetched.
@@ -34,36 +60,71 @@ al.c.answerList = uk.computed(
   },
   [al.c.question, app.o.answerMap]
 )
-al.c.statList = uk.computed(
+al.c.choiceMap = uk.computed(
   function () {
-    const question = al.c.question.get()
-    if (!question) { return [] } // Short ckt.
-    const answerList = al.c.answerList.get()
-    if (!answerList.length) { return [] } // Short ckt.
-    // ^-- Short ckt'ing avoids dividing by zero.
-    const statMap = {}
-    // ^-- Mapping from choiceId to relevant stats/info.
-    // Init statMap:
+    question = al.c.question.get()
+    if (!question) {
+      return {} // Short ckt.
+    }
+    const choiceMap = {}
     _.each(question.choiceList, function (choice) {
-      statMap[choice._id] = {
-        choiceId: choice._id,
+      choiceMap[choice._id] = choice
+    })
+    return choiceMap
+  },
+  [al.c.question]
+)
+al.c.statCombo = uk.computed(
+  function () {
+    const SHORT_CKT = {
+      choiceStatList: [],
+      weightAvg: {}
+    }
+    const question = al.c.question.get()
+    if (!question) { return SHORT_CKT }
+    const answerList = al.c.answerList.get()
+    if (!answerList.length) { return SHORT_CKT }
+    // ^-- Short ckt'ing avoids dividing by zero.
+    const weightList = []
+    const choiceStatMap = {}
+    let totalWeight = 0
+    // ^-- Mapping from choiceId to relevant stats/info.
+    // Init choiceStatMap:
+    _.each(question.choiceList, function (choice) {
+      choiceStatMap[choice._id] = choice
+      choiceStatMap[choice._id] = {
+        // Mapping from choiceId to stats for that choice.
         count: 0,
-        choiceText: choice.text || '(blank)',
-        percent: 0
+        percentCount: 0,
+        cumWeight: 0,
+        percentCumWeight: 0, // <-- 'cum': CUMulative
+        choice: choice // <-- Convenient ref. to question.choiceList.$:
       }
     })
-    // Update statMap:
+    // Update choiceStatMap:
     _.each(answerList, function (answer) {
       const cid = answer.choiceId // Local shorthand.
-      console.log(misc.pretty(statMap))
-      console.log(cid)
-      console.assert(_.has(statMap, cid), 'Assert `cid` in statMap.')
-      statMap[cid].count += 1
-      statMap[cid].percent = (
-        100 * statMap[cid].count / answerList.length
+      console.assert(_.has(choiceStatMap, cid), 'Assert `cid` in choiceStatMap.')
+      choiceStatMap[cid].count += 1
+      const weight = choiceStatMap[cid].choice.weight // locShort
+      weightList.push(weight)
+      totalWeight += weight
+      choiceStatMap[cid].cumWeight += weight
+    })
+    _.each(question.choiceList, function (choice) {
+      const cid = choice._id // Local shorthand
+      choiceStatMap[cid].percentCount = (
+        100 * choiceStatMap[cid].count / answerList.length
+      )
+      choiceStatMap[cid].percentCumWeight = (
+        100 * choiceStatMap[cid].cumWeight / totalWeight
       )
     })
-    return _.values(statMap)
+    return {
+      choiceStatList: _.values(choiceStatMap),
+      totalWeight: totalWeight,
+      weightMs: al.getMs(weightList)
+    }
   },
   [al.c.question, al.c.answerList]
 )

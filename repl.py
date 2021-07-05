@@ -7,7 +7,7 @@ import waitress
 import dotenv
 
 # pip-int:
-# n/a
+import dotsi
 
 # loc:
 # DELAYED

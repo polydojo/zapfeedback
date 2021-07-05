@@ -32,7 +32,8 @@ def get_hit_questionId_choiceId(questionId, choiceId):
     answer = answerMod.buildAnswer(
         questionId=question._id,
         choiceId=choice._id,
-        choiceText=choice.text,
+        thenChoiceText=choice.text,
+        thenChoiceWeight=choice.weight,
         email=email,
     )
     assert answerMod.validateAnswer(answer)

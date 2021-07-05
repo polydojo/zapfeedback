@@ -19,7 +19,7 @@ import stdAdpBuilder
 # Assertions & prelims:                                    #
 ############################################################
 
-assert K.CURRENT_ANSWER_V == 0
+assert K.CURRENT_ANSWER_V == 1
 db = dotsi.fy({"answerBox": mongo.db.answerBox})  # Isolate
 
 ############################################################
@@ -35,16 +35,21 @@ validateAnswer = vf.dictOf(
         #
         "questionId": utils.isObjectId,
         "choiceId": utils.isObjectId,
-        "choiceText": vf.typeIs(str),
+        # "choiceText": vf.typeIs(str),  -- Renamed in _v1 to 'thenChoiceText'
         "email": vf.typeIs(str),  # TODO: Allow K.EMAIL_RE or "".
         "createdAt": utils.isInty,
         "comment": vf.typeIs(str),
+        #
+        # Intro'd in _v1:
+        #
+        "thenChoiceText": vf.typeIs(str),
+        "thenChoiceWeight": utils.isInty,
     }
 )
 
 
-def buildAnswer(questionId, choiceId, choiceText, email=""):
-    assert K.CURRENT_ANSWER_V == 0
+def buildAnswer(questionId, choiceId, thenChoiceText, thenChoiceWeight, email=""):
+    assert K.CURRENT_ANSWER_V == 1
     return dotsi.fy(
         {
             "_id": utils.objectId(),
@@ -54,10 +59,15 @@ def buildAnswer(questionId, choiceId, choiceText, email=""):
             #
             "questionId": questionId,
             "choiceId": choiceId,
-            "choiceText": choiceText,
+            # "choiceText": choiceText, -- Renamed in _v1 to 'thenChoiceText'
             "email": email,
             "createdAt": utils.now(),
             "comment": "",
+            #
+            # Intro'd in _v1:
+            #
+            "thenChoiceText": thenChoiceText,
+            "thenChoiceWeight": thenChoiceWeight,
         }
     )
 
@@ -72,6 +82,22 @@ answerAdp = stdAdpBuilder.buildStdAdp(
     int_CURRENT_FOO_V=K.CURRENT_ANSWER_V,
     func_validateFoo=validateAnswer,
 )
+
+
+@answerAdp.addStepAdapter
+def stepAdapterCore_from_0_to_1(answerY):  # NON-lambda func.
+    # answer._v: 0 --> 1
+    # Renamed:
+    #   ~ choiceText --> thenChoiceText
+    # Added:
+    #   + thenChoiceWeight
+    answerY.update(
+        {
+            "thenChoiceText": answerY.pop("choiceText"),
+            "thenChoiceWeight": 0,  # Backfilling 0.
+        }
+    )
+
 
 # @answerAdp.addStepAdapter
 # def stepAdapterCore_from_X_to_Y (answerY):   # NON-lambda func.

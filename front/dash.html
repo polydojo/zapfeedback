@@ -110,41 +110,74 @@
         <div class="{{ m.router.ifRoute('questionEditor') }}" id="questionEditor">
             <% if (m.questionEditor.c.savedQuestion && m.questionEditor.o.liveQuestion && m.router.c.activeId === "questionEditor") { %>
                 <header>
+                    <span class="float-right">
+                        <a class="btn btn-light btn-sm" href="?id=questionSharer&questionId={{m.questionEditor.o.questionId}}">
+                            <i class="fa fa-fw fa-share-square"></i> Share
+                        </a>&nbsp;
+                        <a class="btn btn-light btn-sm" href="?id=answerLister&questionId={{m.questionEditor.o.questionId}}">
+                            <i class="fa fa-fw fa-eye"></i> View Responses
+                        </a>
+                    </span>
                     <h3>Question Editor</h3>
                     <br>
                 </header>
                 <form data-on="submit" data-call="/questionEditor/onSubmit_saveQuestion">
                     <!-- Note: W.r.t input elements, the `name` attr isn't used by JS. -->
                     <div class="form-group">
-                        <label>Short Name <span class="small gray">(For internal use only.)</small></label>
-                        <input type="text" name="shortName" value="{{m.questionEditor.o.liveQuestion.shortName}}" class="form-control"
-                            data-on="input" data-bind="value" data-to="/questionEditor/o/liveQuestion" data-at="/shortName" required
+                        <label class="mb-0">Short Name <span class="small gray">&nbsp;(For internal use only.)</span></label>
+                        <input type="text" name="shortName" value="{{m.questionEditor.o.liveQuestion.shortName}}"
+                            class="form-control" data-on="input" data-bind="value"
+                            data-to="/questionEditor/o/liveQuestion" data-at="/shortName" required
                         >
                     </div>
                     <div class="form-group">
-                        <label>Question Text</label>
-                        <input type="text" name="questionText" value="{{m.questionEditor.o.liveQuestion.text}}" class="form-control"
-                            data-on="input" data-bind="value" data-to="/questionEditor/o/liveQuestion" data-at="/text" required
+                        <label class="mb-0">Question Text</label>
+                        <input type="text" name="questionText" value="{{m.questionEditor.o.liveQuestion.text}}"
+                            class="form-control" data-on="input" data-bind="value"
+                            data-to="/questionEditor/o/liveQuestion" data-at="/text" required
                         >
                     </div>
-                    <h4>Choices</h4>
+
                     <% _.each(m.questionEditor.o.liveQuestion.choiceList, function (choice, index) { %>
-                        <div class="form-group">
-                            <label>Choice #{{index + 1}}</label>
-                            <input type="text" name="ch_{{index}}" value="{{choice.text}}" class="form-control" data-on="input"
-                                data-bind="value" data-to="/questionEditor/o/liveQuestion" data-at="/choiceList/{{index}}/text" required
-                            >
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <span class="{{uk.if(m.questionEditor.o.liveQuestion.isWeighted, 'bold')}}">
+                                    Choice #{{index + 1}}
+                                </span>
+                            </div>
+                            <div class="col-md-1 {{uk.if(! m.questionEditor.o.liveQuestion.isWeighted, 'd-none')}}">
+                                <label class="mt-1">Text</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="chText_{{index}}" value="{{choice.text}}" class="form-control"
+                                    placeholder="Choice Text" data-on="input" data-bind="value"
+                                    data-to="/questionEditor/o/liveQuestion" data-at="/choiceList/{{index}}/text" required
+                                >
+                            </div>
+                            <% if (m.questionEditor.o.liveQuestion.isWeighted) { %>
+                                <div class="col-md-1">
+                                    <label class="mt-2">Weight</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" name="chText_{{index}}" value="{{choice.weight}}" class="form-control"
+                                        placeholder="Choice Weight" data-on="input" data-bind="value"
+                                        data-to="/questionEditor/o/liveQuestion" data-at="/choiceList/{{index}}/weight" required
+                                    >
+                                </div>
+                            <% } %>
                         </div>
                     <% }); %>
+                    <br>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" name="isWeighted" class="form-check-input" data-on="change" data-bind="checked"
+                                data-to="/questionEditor/o/liveQuestion" data-at="/isWeighted"
+                                {{uk.if(m.questionEditor.o.liveQuestion.isWeighted, 'checked')}}
+                            >&nbsp;
+                            Enable choice weights.
+                        </label>
+                    </div>
                     <div class="form-group">
-                        <span class="float-right">
-                            <a class="btn btn-primary btn-sm" href="?id=questionSharer&questionId={{m.questionEditor.o.questionId}}">
-                                <i class="fa fa-fw fa-share-square"></i> Share
-                            </a>
-                            <a class="btn btn-light btn-sm" href="?id=answerLister&questionId={{m.questionEditor.o.questionId}}">
-                                <i class="fa fa-fw fa-eye"></i> View Responses
-                            </a>
-                        </span>
                         <button class="btn btn-primary">
                             <i class="fa fa-fw fa-save"></i> Save
                         </button>
@@ -225,11 +258,37 @@
                 <h5>Question:</h5>
                 <p>{{m.answerLister.c.question.text}}</p>
                 <h5>Number of Responses: {{m.answerLister.c.answerList.length}}</h5>
-                
                 <br>
+                
+                <% if (m.answerLister.c.question.isWeighted && m.answerLister.c.statCombo.totalWeight) { %>
+                    <h5>Weight Stats:</h5>
+                    <table class="table table-sm table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Mean</th>
+                                <th>Median</th>
+                                <th>Mode</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="bold large">{{ m.answerLister.c.statCombo.weightMs.mean }}</td>
+                                <td>{{ m.answerLister.c.statCombo.weightMs.median }}</td>
+                                <td>{{ m.answerLister.c.statCombo.weightMs.mode }}</td>
+                                <td>{{ m.answerLister.c.statCombo.weightMs.min }}</td>
+                                <td>{{ m.answerLister.c.statCombo.weightMs.max }}</td>
+                                <td>{{ m.answerLister.c.statCombo.totalWeight }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                <% } %>
 
-                <h5>Statistical Breakdown:</h5>
-                <% if (m.answerLister.c.statList.length === 0) { %>
+                <h5>Choice Stats:</h5>
+                <% if (m.answerLister.c.statCombo.choiceStatList.length === 0) { %>
                     <div class="border1px p-2 centerText">
                         <br><br>
                             No meaningful statistics to show yet.
@@ -241,21 +300,30 @@
                             <tr>
                                 <th>Choice</th>
                                 <th>Count</th>
-                                <th>Percentage</th>
+                                <th>Percentage <span class="dimGray unbold">(by count)</span></th>
+                                <% if (m.answerLister.c.question.isWeighted && m.answerLister.c.statCombo.totalWeight) { %>
+                                    <th class="small bold gray">Choice Weight</th>
+                                    <th class="small bold gray">Cum. Weight</th>
+                                    <th class="small bold gray">Cum. Weight %</th>
+                                <% } %>
                             </tr>
                         </thead>
                         <tbody>
-                            <% _.each(m.answerLister.c.statList, function (stat) { %>
+                            <% _.each(m.answerLister.c.statCombo.choiceStatList, function (choiceStat) { %>
                                 <tr>
-                                    <td>{{stat.choiceText}}</td>
-                                    <td class="rightAlign">{{stat.count}} <!--of {{m.answerLister.c.answerList.length}}--></td>
-                                    <td class="rightAlign">{{stat.percent.toFixed(2)}}%</td>
+                                    <td>{{choiceStat.choice.text}}</td>
+                                    <td class="rightAlign">{{choiceStat.count}} <!--of {{m.answerLister.c.answerList.length}}--></td>
+                                    <td class="rightAlign">{{choiceStat.percentCount.toFixed(2)}}%</td>
+                                    <% if (m.answerLister.c.question.isWeighted && m.answerLister.c.statCombo.totalWeight) { %>
+                                        <td class="rightAlign small gray">{{choiceStat.choice.weight}}</td>
+                                        <td class="rightAlign small gray">{{choiceStat.cumWeight}}</td>
+                                        <td class="rightAlign small gray">{{choiceStat.percentCumWeight.toFixed(2)}}%</td>
+                                    <% } %>
                                 </tr>
                             <% }); %>
                         </tbody>
                     </table>
                 <% } %>
-                
                 <br>
                 
                 <h5>Individual Responses:</h5>
@@ -272,13 +340,19 @@
                         <% _.each(m.answerLister.c.answerList, function (answer) { %>
                             <tr>
                                 <td>{{new Date(answer.createdAt).toLocaleString()}}</td>
-                                <td>{{answer.choiceText}}</td>
+                                <td>
+                                    {{
+                                        m.answerLister.c.choiceMap[answer.choiceId] &&
+                                        m.answerLister.c.choiceMap[answer.choiceId].text
+                                    }}
+                                </td>
                                 <td>{{answer.email || '-'}}</td>
                                 <td>{{answer.comment || '-'}}</td>
                             </tr>
                         <% }); %>
                     </tbody>
                 </table>
+                <br>
                     
             <% } %><!-- end route guard -->
         </div><!-- end route 'answerLister' -->
