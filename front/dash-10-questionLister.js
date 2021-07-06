@@ -51,6 +51,23 @@ ql.onClick_newQuestion = async function () {
   })
 }
 
+ql.onClick_deleteQuestion = async function (questionId) {
+  const question = app.o.questionMap.get()[questionId]
+  const sure = await misc.confirm(
+    'Are you sure about deleting this question?\n\n' +
+    'Note: Deletion is irreversable; responses will also be deleted.'
+  )
+  if (!sure) { return null } // Short ckt.
+  const dataToSend = {
+    questionId: questionId
+  }
+  misc.spinner.start('Deleting ...')
+  const resp = await misc.postJson('/questionCon/deleteQuestion', dataToSend)
+  app.o.questionMap.pop(resp.deletedQuestionId)
+  misc.spinner.stop()
+  misc.alert('Done! Question deleted.')
+}
+
 // Close: //////////////////////////////////////////////////
 ql.close = function () {
   $.noop()

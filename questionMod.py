@@ -194,8 +194,8 @@ def replaceQuestion(question):
     return dbOut
 
 
-def deleteQuestion(question):
-    "Deletes an unverified, invited."
+def deleteQuestion(question):  # <-- Does NOT touch db.answerBox.
+    "More or less blindly deletes a question."
     assert validateQuestion(question)
     dbOut = db.questionBox.delete_one({"_id": question._id})
     assert dbOut.deleted_count == 1

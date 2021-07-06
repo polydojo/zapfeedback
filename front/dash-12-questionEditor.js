@@ -24,6 +24,20 @@ qe.c.savedQuestion = uk.computed(
 qe.o.liveQuestion = uk.observable(null)
 // ^-- live as in editable. Can be edited, and then (later) saved.
 
+qe.o.liveQuestion.subscribe(function (newQ) {
+  let didNumberify = false
+  if (!newQ) { return null } // Short ckt.
+  _.each(newQ.choiceList, function (choice) {
+    if (_.isString(choice.weight)) {
+      didNumberify = true
+      choice.weight = Number(choice.weight) || 0 // Update non-observably
+    }
+  })
+  if (didNumberify) { // <-- Guard prevents inf. recursion.
+    qe.o.liveQuestion.set(newQ) // Update observably, once.
+  }
+})
+
 // Open: ///////////////////////////////////////////////////
 qe.open = async function (info) {
   await app.questionLister.fetchQuestionListIfReqd()
@@ -33,7 +47,8 @@ qe.open = async function (info) {
     app.router.openDefault()
     return null // Short ckt.
   }
-  qe.o.liveQuestion.set(question)
+  qe.o.liveQuestion.set(uk.deepCopy(question))
+  // ^-- Deep-copy for non-aliasing.
 }
 
 // Events: /////////////////////////////////////////////////

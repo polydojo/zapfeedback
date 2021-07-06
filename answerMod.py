@@ -175,7 +175,7 @@ def replaceAnswer(answer):
 
 
 def deleteAnswer(answer):
-    "Deletes an unverified, invited."
+    "More or less blindly deletes an answer."
     assert validateAnswer(answer)
     dbOut = db.answerBox.delete_one({"_id": answer._id})
     assert dbOut.deleted_count == 1

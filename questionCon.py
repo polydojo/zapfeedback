@@ -12,6 +12,7 @@ import bu
 from appDef import app
 from constants import K
 import questionMod
+import answerMod
 import utils
 import auth
 
@@ -67,8 +68,10 @@ def post_questionCon_updateQuestion():
     assert sesh.user.isAdmin
     question = questionMod.getQuestion(jdata.questionId)
     assert question
-    # TODO:Periodic-review-reqd: Delete any inner/linked documents.
-    # XXX:TODO: Delete answers to this question.
+    # TODO: Periodic review req'd: Delete inner/linked documents.
+    answerList = answerMod.getAnswerList({"questionId": question._id})
+    for answer in answerList:
+        answerMod.deleteAnswer(answer)
     questionMod.deleteQuestion(question)
     return {"deletedQuestionId": question._id}
 
