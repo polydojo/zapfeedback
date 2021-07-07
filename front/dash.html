@@ -95,7 +95,7 @@
                 <% _.each(m.questionLister.c.questionList, function (question) { %>
                     <div class="mb-1">
                         <div class="dropdown inlineBlock">
-                            <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                            <button class="btn btn-light dropdown-toggle btn-sm small" type="button"
                                 id="ddBtnFor_question_{{question._id}}"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             >
@@ -119,6 +119,7 @@
                                 </a>
                             </div>
                         </div>
+                        &nbsp;
                         <a class="cursorPointer" style="font-size: 20px;" data-on="click" data-call="/onClick_toggleDropdownByBtnId"
                             data-lit-arg="ddBtnFor_question_{{question._id}}"
                         >
@@ -148,12 +149,16 @@
                 </header>
                 <form data-on="submit" data-call="/questionEditor/onSubmit_saveQuestion">
                     <!-- Note: W.r.t input elements, the `name` attr isn't used by JS. -->
-                    <div class="form-group">
-                        <label class="mb-0">Short Name <span class="small gray">&nbsp;(For internal use only.)</span></label>
-                        <input type="text" name="shortName" value="{{m.questionEditor.o.liveQuestion.shortName}}"
-                            class="form-control" data-on="input" data-bind="value"
-                            data-to="/questionEditor/o/liveQuestion" data-at="/shortName" required
-                        >
+                    <div class="row form-group">
+                        <div class="col-12">
+                            <label class="m-0">Campaign Name <span class="small gray">&nbsp;(For internal use only.)</span></label>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" name="shortName" value="{{m.questionEditor.o.liveQuestion.shortName}}"
+                                class="form-control" data-on="input" data-bind="value"
+                                data-to="/questionEditor/o/liveQuestion" data-at="/shortName" required
+                            >
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="mb-0">Question Text</label>
@@ -164,14 +169,14 @@
                     </div>
 
                     <% _.each(m.questionEditor.o.liveQuestion.choiceList, function (choice, index) { %>
-                        <div class="row mt-2">
+                        <div class="row form-group">
                             <div class="col-12">
                                 <span class="{{uk.if(m.questionEditor.o.liveQuestion.isWeighted, 'bold')}}">
                                     Choice #{{index + 1}}
                                 </span>
                             </div>
                             <div class="col-md-1 {{uk.if(! m.questionEditor.o.liveQuestion.isWeighted, 'd-none')}}">
-                                <label class="mt-1">Text</label>
+                                <label class="mt-2">Text</label>
                             </div>
                             <div class="col-md-5">
                                 <input type="text" name="chText_{{index}}" value="{{choice.text}}" class="form-control"
@@ -192,7 +197,6 @@
                             <% } %>
                         </div>
                     <% }); %>
-                    <br>
                     <div class="form-group form-check">
                         <label class="form-check-label">
                             <input type="checkbox" name="isWeighted" class="form-check-input" data-on="change" data-bind="checked"
@@ -437,7 +441,7 @@
                     <% _.each(m.userLister.c.userList, function (user) { %>
                         <li class="h4 {{uk.if(user.isDeactivated, 'darkGray', '')}}">
                             <div class="dropdown inlineBlock">
-                                <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                <button class="btn btn-light dropdown-toggle btn-sm small" type="button"
                                     id="ddBtnFor-user-{{user._id}}"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 >

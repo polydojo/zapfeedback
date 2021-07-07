@@ -36,7 +36,7 @@ ql.fetchQuestionList = async function () {
 
 // Events: /////////////////////////////////////////////////
 ql.onClick_newQuestion = async function () {
-  const shortName = await misc.promptText('Short Name (for internal use only)')
+  const shortName = await misc.promptText('Campaign Name (for internal use only)')
   if (!shortName) {
     return null // Short ckt.
   }

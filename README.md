@@ -8,8 +8,40 @@ Use ZapFeedback to create one-question surveys that can be embedded in marketing
 **OSS alternative, under active development:**  
 ZapFeedback aims to be an Open Source alternative to CustomerThermometer, YesInsights, Delighted, etc. It is being actively developed by [Polydojo, Inc.](https://www.polydojo.com/), led by [Sumukh Barve](https://www.sumukhbarve.com/).
 
-Getting Started
----------------
+How It Works
+------------
+
+**Creation: Three Simple Steps!**
+
+1. Create a one-question survey. (Login to ZapFeedback & click 'New Question'.)
+2. Email the survey to your audience (via your ESP) or embed it website/blog.
+3. Sit back and relax. Once reponses start coming in, view them in ZapFeedback.
+
+**Responding: Just One Click!**
+Your audience can complete your survey with just one click, either directly from their inbox, or on your site. For surveys emailed via supported ESPs, respondents' email address are auto-captured. Respondents may choose add additional comments, if they feel like it.
+
+**List of Supported ESPs** (Email Service Provider), as of 07 July 2021:
+1. ActiveCampaign
+1. Autopilot
+1. AWeber
+1. Benchmark
+1. Campaign Monitor
+1. Constant Contact
+1. ConvertKit
+1. Customer.io
+1. Drip
+1. Mad Mimi
+1. Mailchimp
+1. MailerLite
+1. EmailOctopus
+1. GetResponse
+1. Klaviyo
+1. Vero
+
+Sending via a non-marketing-oriented email service like **Gmail/Hotmail** is also supported, but in that case, the respondent's email address can't be auto-captured. The same is also true for surveys embedded on websites.
+
+Installation
+------------
 
 1. Clone the repo and change into it:
     - `git clone https://github.com/polydojo/zapfeedback.git`
