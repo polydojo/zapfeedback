@@ -44,7 +44,8 @@ validateAnswer = vf.dictOf(
         #
         "thenChoiceText": vf.typeIs(str),
         "thenChoiceWeight": utils.isInty,
-    }
+    },
+    extraKeysOk=True,
 )
 
 

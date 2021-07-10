@@ -43,9 +43,9 @@ def get_hit_questionId_choiceId(questionId, choiceId):
 
 
 @app.post("/answerCon/fetchAnswerListByQuestionId")
-def post_answerCon_fetchAnswerList():
+@auth.seshful
+def post_answerCon_fetchAnswerList(sesh):
     jdata = bu.get_jdata(ensure="questionId")
-    sesh = auth.getSesh()
     question = questionMod.getQuestion(jdata.questionId)
     assert bu.claim(question)
     answerList = answerMod.getAnswerList({"questionId": question._id})

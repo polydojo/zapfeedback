@@ -7,7 +7,7 @@ import dotsi
 # pip-ext:
 # n/a
 
-# LOC:
+# loc:
 import bu
 from appDef import app
 from constants import K
@@ -62,13 +62,9 @@ def post_userCon_loginDo():
 
 
 @app.post("/userCon/detectLogin")
-def post_userCon_detectLogin():
+@auth.seshful
+def post_userCon_detectLogin(sesh):
     assert bu.get_jdata() == {}
-    sesh = auth.getSesh()
-    if not sesh.user:
-        return {"user": None}  # <-- That's '200 OK'.
-        # ^-- CLI asked if there's a current user, SER says no.
-    # ==> Current session detected:
     return {
         "user": userMod.snipUser(sesh.user),
     }
@@ -88,8 +84,8 @@ def post_userCon_logout():
 
 
 @app.post("/userCon/fetchUserList")
-def post_userCon_fetchUserList():
-    sesh = auth.getSesh()
+@auth.seshful
+def post_userCon_fetchUserList(sesh):
     userList = userMod.getUserList()
     # print("userList = ", userList);
     snippedUserList = utils.map(userList, userMod.snipUser)
@@ -117,15 +113,15 @@ def sendInviteEmail(invitee, veriCode):
 
 
 @app.post("/userCon/inviteUser")
-def post_userCon_inviteUser():
+@auth.seshful
+def post_userCon_inviteUser(sesh):
+    assert sesh.user.isAdmin
     jdata = bu.get_jdata(
         ensure="""
         invitee_fname, invitee_lname, invitee_email,
         invitee_isAdmin,
     """
     )
-    sesh = auth.getSesh()
-    assert sesh.user.isAdmin
     inviter = sesh.user
     invitee = userMod.getUserByEmail(jdata.invitee_email)
     newVeriCode = userMod.genVeriCode()
@@ -222,10 +218,10 @@ def post_userCon_acceptInvite():
 
 
 @app.post("/userCon/toggleUser_isDeactivated")
-def post_userCon_toggleUser_isDeactivated():
-    jdata = bu.get_jdata(ensure="thatUserId, preToggle_isDeactivated")
-    sesh = auth.getSesh()
+@auth.seshful
+def post_userCon_toggleUser_isDeactivated(sesh):
     assert sesh.user.isAdmin
+    jdata = bu.get_jdata(ensure="thatUserId, preToggle_isDeactivated")
     thatUser = userMod.getUser(
         {
             "_id": jdata.thatUserId,

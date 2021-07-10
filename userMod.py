@@ -65,7 +65,8 @@ _validateUserFormat = vf.dictOf(
         "resetPwExpiresAt": utils.isInty,
         "isAdmin": vf.typeIs(bool),  # Flag for any admin
         "isPrime": vf.typeIs(bool),  # Flag for primary admin
-    }
+    },
+    extraKeysOk=True,
 )
 
 

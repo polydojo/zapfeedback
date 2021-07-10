@@ -1,5 +1,5 @@
 # std:
-# n/a
+import functools
 
 # pip-int:
 import dotsi
@@ -114,11 +114,22 @@ def getSesh(strict=True, validateCsrf=None, req=None):
         # XXX:Note: Below 'log out' should force CLI logout.
         return bu.abort(
             "ACCOUNT DEACTIVATED\n\n"
-            + "Your account has been deactivated by your admin."
+            + "Your account has been deactivated by your admin. "
             + "You shall now proceed to log out."  # +
         )
     # ==> User exists, is verified, non-deactivated.
     return dotsi.fy({"user": user})
+
+
+def seshful(oldFunc):
+    "Decorator-style wrapper around getSesh()"
+
+    @functools.wraps(oldFunc)
+    def newFunc(*args, **kwargs):
+        sesh = getSesh()
+        return oldFunc(sesh=sesh, *args, **kwargs)
+
+    return newFunc
 
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

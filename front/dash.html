@@ -8,7 +8,6 @@
     
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/node_modules/summernote/dist/summernote-bs4.css"><!-- pre-minified -->
     <link rel="stylesheet" href="/front/helpers.css">
     <link rel="stylesheet" href="/front/general.css">
     <link rel="stylesheet" href="/front/dash.css">
@@ -61,6 +60,7 @@
                     <a class="dropdown-item" href="?id=userLister">
                         <i class="fa fa-fw fa-users"></i>&nbsp; Users
                     </a>
+                    <!-- pugmark:bling-mlink -->
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/logout">
                         <i class="fa fa-fw fa-sign-out-alt"></i>&nbsp; Log Out
@@ -474,7 +474,8 @@
             <% } %><!-- end route guard -->
         </div><!-- end route 'userLister' -->
         
-        
+
+        <!-- pugmark:bling-route -->
         <!-- PLACEHOLDER ROUTE: '__route__name__' -->
         <div class="{{ m.router.ifRoute('__route__name__') }}" id="__route__name__">
             <% if (m.__your_condintion_here__ && m.router.c.activeId === "__route__name__") { %>

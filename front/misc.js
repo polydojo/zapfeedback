@@ -93,16 +93,17 @@ misc.postJson = async function (url, data, success) {
 }
 
 // Error Handlign
-$(document).ajaxError(function (event, jqXhr) {
+$(document).ajaxError(async function (event, jqXhr) {
   window.jqXhr = jqXhr
   // console.log(jqXhr.responseText);
   // console.trace();
+  misc.spinner.stop()
   if (jqXhr.status === 418 && jqXhr.responseJSON && jqXhr.responseJSON.status === 'fail') {
     // ==> 418 JSON Error
     const reason = jqXhr.responseJSON.reason
     if (reason.toLowerCase().split(' ').join('').includes('logout')) {
       // ==> Force logout
-      misc.alert('Error: ' + reason)
+      await misc.alert('Error: ' + reason)
       window.location.href = '/logout'
     } else {
       // ==> Needn't force logout.
@@ -114,7 +115,6 @@ $(document).ajaxError(function (event, jqXhr) {
     // Unknown error:
     misc.alert('An unknown error occured. | Status Code: ' + jqXhr.status)
   }
-  misc.spinner.stop()
 })
 
 // Break out of iframes:

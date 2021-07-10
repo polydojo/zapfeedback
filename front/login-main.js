@@ -21,6 +21,7 @@ $('form.loginr').on('submit', async function (event) {
     email: form.email.value,
     pw: form.pw.value
   }
+  // pugmark:login-urlid
   console.log(dataToSend)
   misc.spinner.start('Logging in ...')
   await misc.postJson('/userCon/loginDo', dataToSend)

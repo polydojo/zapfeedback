@@ -56,7 +56,6 @@ X.SHORTCUT_MAP = {
     "/dash": "/front/dash.html",
 }
 
-
 X.SECRET_KEY = envi.read("SECRET_KEY")
 
 X.AUTH_COOKIE_SECRET = "auth-cookie-secret::" + X.SECRET_KEY
@@ -117,6 +116,7 @@ application/xml application/xml+xhtml image/xml+svg
 #           (There can't be such a thing.)
 #           TODO: Review periodically.
 
+# pugmark:constants-mo
 
 ############################################################
 ### COLLECT INTO `K':                                      #

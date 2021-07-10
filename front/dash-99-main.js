@@ -14,6 +14,7 @@ app.questionEditor = require('./dash-12-questionEditor.js')
 app.questionSharer = require('./dash-14-questionSharer.js')
 app.answerLister = require('./dash-16-answerLister.js')
 app.userLister = require('./dash-30-userLister.js')
+// pugmark:dash-moreq
 
 app.detectLogin = async function () {
   const resp = await misc.postJson('/userCon/detectLogin', {})

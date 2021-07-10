@@ -18,9 +18,9 @@ import auth
 
 
 @app.post("/questionCon/createQuestion")
-def post_questionCon_createQuestion():
+@auth.seshful
+def post_questionCon_createQuestion(sesh):
     jdata = bu.get_jdata(ensure="shortName")
-    sesh = auth.getSesh()
     question = questionMod.buildQuestion(
         creatorId=sesh.user._id,
         shortName=jdata.shortName,
@@ -31,23 +31,23 @@ def post_questionCon_createQuestion():
 
 
 @app.post("/questionCon/fetchQuestionList")
-def post_questionCon_fetchQuestionList():
-    sesh = auth.getSesh()
+@auth.seshful
+def post_questionCon_fetchQuestionList(sesh):
     return {"questionList": questionMod.getQuestionList()}
 
 
 @app.post("/questionCon/buildChoice")
-def post_questionCon_buildChoice():
-    sesh = auth.getSesh()
+@auth.seshful
+def post_questionCon_buildChoice(sesh):
     return {"choice": questionMod.buildChoice()}
 
 
 @app.post("/questionCon/updateQuestion")
-def post_questionCon_updateQuestion():
+@auth.seshful
+def post_questionCon_updateQuestion(sesh):
     jdata = bu.get_jdata(ensure="question")
     newQuestion = jdata.question  # Local alias.
     assert questionMod.validateQuestion(newQuestion)
-    sesh = auth.getSesh()
     oldQuestion = questionMod.getQuestion(newQuestion._id)
     # ^-- old => before update, new => updated.
     assert oldQuestion
@@ -62,10 +62,10 @@ def post_questionCon_updateQuestion():
 
 
 @app.post("/questionCon/deleteQuestion")
-def post_questionCon_updateQuestion():
-    jdata = bu.get_jdata(ensure="questionId")
-    sesh = auth.getSesh()
+@auth.seshful
+def post_questionCon_updateQuestion(sesh):
     assert sesh.user.isAdmin
+    jdata = bu.get_jdata(ensure="questionId")
     question = questionMod.getQuestion(jdata.questionId)
     assert question
     # TODO: Periodic review req'd: Delete inner/linked documents.

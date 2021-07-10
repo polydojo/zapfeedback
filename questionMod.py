@@ -52,7 +52,8 @@ _validateQuestionFormat = vf.dictOf(
         # Intro'd in _v1:
         #
         "isWeighted": vf.typeIs(bool),
-    }
+    },
+    extraKeysOk=True,
 )
 
 
