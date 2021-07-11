@@ -169,7 +169,8 @@ assert userAdp.getStepCount() == K.CURRENT_USER_V
 
 def getUser(q, shouldUpdateDb=True):
     "Query traditionally for a single user."
-    assert type(q) in [str, dict]
+    q = {"_id": q} if type(q) is str else q
+    assert type(q) is dict
     user = db.userBox.find_one(q)
     if user is None:
         return None

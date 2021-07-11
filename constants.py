@@ -9,7 +9,7 @@ import json
 import dotsi
 
 # loc:
-import envi
+# n/a
 
 # Private `X`, container for anything not req'd @ client:
 X = dotsi.Dict()
@@ -20,15 +20,15 @@ U = dotsi.Dict()
 # Combined `K` contains keys from X & U. (They shouldn't clash keys.)
 K = dotsi.Dict()
 
-X.RUN_HOST = envi.read("HOST")
-X.RUN_PORT = envi.read("PORT")
+X.RUN_HOST = os.environ["HOST"]
+X.RUN_PORT = os.environ["PORT"]
 
-X.APP_SCHEME = envi.read("ENFORCE_SCHEME")
-X.APP_NETLOC = envi.read("ENFORCE_NETLOC")
+X.APP_SCHEME = os.environ["ENFORCE_SCHEME"]
+X.APP_NETLOC = os.environ["ENFORCE_NETLOC"]
 U.SITE_URL = "%s://%s" % (X.APP_SCHEME, X.APP_NETLOC)
 # ^-- SITE_URL is req'd @ cli for question sharing.
 
-X.DEBUG = bool(envi.read("DEBUG").upper() == "TRUE")
+X.DEBUG = bool(os.environ["DEBUG"].upper() == "TRUE")
 # ^-- XXX:Note: Case-insensitive comparison with __string__ "TRUE".
 
 
@@ -56,33 +56,33 @@ X.SHORTCUT_MAP = {
     "/dash": "/front/dash.html",
 }
 
-X.SECRET_KEY = envi.read("SECRET_KEY")
+X.SECRET_KEY = os.environ["SECRET_KEY"]
 
 X.AUTH_COOKIE_SECRET = "auth-cookie-secret::" + X.SECRET_KEY
 X.ANTI_CSRF_SECRET = "anti-csrf-secret::" + X.SECRET_KEY
 U.REMEMBER_ME_DAY_COUNT = 30
 # ^-- Available @ client, visible in (httpOnly) cookie anyway.
 
-X.DATABASE_URL = envi.read("DATABASE_URL")
+X.DATABASE_URL = os.environ["DATABASE_URL"]
 
 X.S3 = {
-    "ENDPOINT": envi.read("S3_ENDPOINT"),
-    "ACCESS_KEY": envi.read("S3_ACCESS_KEY_ID"),
-    "ACCESS_SECRET": envi.read("S3_SECRET_ACCESS_KEY"),
-    "BUCKET_NAME": envi.read("S3_BUCKET_NAME", "polydojo-kb-onprem"),
-    "BUCKET_LOCATION": envi.read("S3_BUCKET_REGION", "us-east-2"),
+    "ENDPOINT": os.environ["S3_ENDPOINT"],
+    "ACCESS_KEY": os.environ["S3_ACCESS_KEY_ID"],
+    "ACCESS_SECRET": os.environ["S3_SECRET_ACCESS_KEY"],
+    "BUCKET_NAME": os.environ.get("S3_BUCKET_NAME", "zapfeedback-onprem"),
+    "BUCKET_LOCATION": os.environ.get("S3_BUCKET_REGION", "us-east-2"),
 }
 
 X.SMTP = {
-    "HOST": envi.read("SMTP_HOST"),
-    "PORT": int(envi.read("SMTP_PORT", "587")),
-    "USERNAME": envi.read("SMTP_USERNAME"),
-    "PASSWORD": envi.read("SMTP_PASSWORD"),
-    "STARTTLS": (envi.read("SMTP_STARTTLS").lower() == "true"),
+    "HOST": os.environ["SMTP_HOST"],
+    "PORT": int(os.environ.get("SMTP_PORT", "587")),
+    "USERNAME": os.environ["SMTP_USERNAME"],
+    "PASSWORD": os.environ["SMTP_PASSWORD"],
+    "STARTTLS": (os.environ["SMTP_STARTTLS"].lower() == "true"),  # <-- str cmp.
     # Quick defaults:
-    "DEFAULT_FROM_NAME": envi.read("SMTP_FROM_NAME", "polydojo-kb-onprem"),
-    "DEFAULT_FROM_EMAIL": envi.read(
-        "SMTP_FROM_EMAIL", "polydojo-kb-onprem@example.com"
+    "DEFAULT_FROM_NAME": os.environ.get("SMTP_FROM_NAME", "zapfeedback-onprem"),
+    "DEFAULT_FROM_EMAIL": os.environ.get(
+        "SMTP_FROM_EMAIL", "zapfeedback-onprem@example.com"
     ),
 }
 X.MEMFILE_MAX = 30 * 1000 * 1000

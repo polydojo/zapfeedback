@@ -131,8 +131,9 @@ assert answerAdp.getStepCount() == K.CURRENT_ANSWER_V
 
 
 def getAnswer(q, shouldUpdateDb=True):
-    "Answerry traditionally for a single answer."
-    assert type(q) in [str, dict]
+    "Query traditionally for a single answer."
+    q = {"_id": q} if type(q) is str else q
+    assert type(q) is dict
     answer = db.answerBox.find_one(q)
     if answer is None:
         return None  # Short ckt.
@@ -140,7 +141,7 @@ def getAnswer(q, shouldUpdateDb=True):
 
 
 def getAnswerList(q=None, shouldUpdateDb=True):
-    "Answerry traditionally for multiple answers."
+    "Query traditionally for multiple answers."
     q = q or {}
     assert type(q) is dict
     adaptWrapper = (  # A wrapper around `adapt`, aware of `shouldUpdateDb`.

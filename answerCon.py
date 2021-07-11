@@ -36,6 +36,7 @@ def get_hit_questionId_choiceId(questionId, choiceId):
         thenChoiceWeight=choice.weight,
         email=email,
     )
+    # pugmark:answer-xtq
     assert answerMod.validateAnswer(answer)
     answerMod.insertAnswer(answer)
     # return {"answer": answer}

@@ -132,4 +132,7 @@ def seshful(oldFunc):
     return newFunc
 
 
+# pugmark:auth-mo
+
+
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
