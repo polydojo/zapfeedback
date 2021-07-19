@@ -3,7 +3,7 @@
  *  Any changes must be propagated through the backend.
  */
 
-var K = {
+const K = {
     "SITE_URL": "http://localhost:8080",
     "REMEMBER_ME_DAY_COUNT": 30,
     "GH_REPO_URL": "https://github.com/polydojo/zapfeedback"

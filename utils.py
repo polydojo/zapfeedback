@@ -15,6 +15,7 @@ import dotsi
 # pip-ext:
 import bson
 import bcrypt
+import dateutil.parser
 
 # loc:
 # n/a
@@ -125,8 +126,14 @@ date_to_ms = lambda date: (
     # ^-- TODO: EPOCH_DATE shouldn't be required, right? Fix if needed.
 )
 
-hours_to_ms = lambda h: h * 60 * 60 * 1000
-# ^-- `h` (hr) * 60 (min/hr) * 60 (sec/min) * 1000 (ms/sec)
+
+def iso_to_ms(isoDateStr):
+    return date_to_ms(dateutil.parser.parse(isoDateStr))
+
+
+minutes_to_ms = lambda m: m * 60 * 1000
+# ^-- `m` (min) * 60 (sec/min) * 1000 (ms/sec)
+hours_to_ms = lambda h: minutes_to_ms(h * 60)
 days_to_ms = lambda d: hours_to_ms(d * 24)
 
 ms_to_hours = lambda t: t / (60 * 60 * 1000)

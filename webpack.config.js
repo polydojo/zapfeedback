@@ -26,4 +26,5 @@ module.exports = {
         "source-map"//, NO COMMA
     ), */
   optimization: { minimize: false }
+  // stats: { preset: 'errors-only' } // Reduces webpack's o/p verbosity
 }

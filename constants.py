@@ -91,6 +91,7 @@ X.MEMFILE_MAX = 30 * 1000 * 1000
 X.USER_EMAIL_INDEX_NAME = "user_email_index"
 
 X.CURRENT_USER_V = 0
+X.CURRENT_MAGITOK_V = 0
 X.CURRENT_QUESTION_V = 1
 X.CURRENT_ANSWER_V = 1
 
@@ -148,7 +149,7 @@ CONSTANTS_JS_CODE = (
  *  Any changes must be propagated through the backend.
  */
 
-var K = %s;
+const K = %s;
 
 module.exports = K;
 """

@@ -25,6 +25,7 @@ app.detectLogin = async function () {
   // ==> Detection succeeded.
   app.o.userMap.updateOne(resp.user)
   app.o.currentUserId.set(resp.user._id)
+  // pugmark:dash-dctlogmo
   misc.spinner.stop()
   return null
 }

@@ -32,7 +32,7 @@
             <% }); %>
         <% } %>
     </script>
-
+    
     
     <script type="text/html" id="ukSource"> <!-- /> -->
         <%
@@ -439,7 +439,7 @@
                 <% } %>
                 <ul class="list-unstyled">
                     <% _.each(m.userLister.c.userList, function (user) { %>
-                        <li class="h4 {{uk.if(user.isDeactivated, 'darkGray', '')}}">
+                        <li class="h4 {{uk.if(user.isDeactivated || (! user.isVerified), 'darkGray', '')}}">
                             <div class="dropdown inlineBlock">
                                 <button class="btn btn-light dropdown-toggle btn-sm small" type="button"
                                     id="ddBtnFor-user-{{user._id}}"
@@ -501,6 +501,7 @@
         <a class="unsetColor underline" href="https://www.polydojo.com" target="_blank">Polydojo</a>.
     </footer>
     
+    <!-- pugmark:dash-prebndl -->
     <script src="/front/dist/dash-bundle.js"></script>
 </body>
 </html>

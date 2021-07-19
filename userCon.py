@@ -1,5 +1,7 @@
 # std:
-# n/a
+import time
+import secrets
+import random
 
 # pip-int:
 import dotsi
@@ -12,6 +14,7 @@ import bu
 from appDef import app
 from constants import K
 import userMod
+import magitokMod
 import utils
 import auth
 import emailer
@@ -39,7 +42,7 @@ def post_userCon_setupFirstUser():
     return auth.sendAuthSuccessResponse(user)
 
 
-@app.post("/userCon/loginDo")
+@app.post("/userCon/loginDo")  # -- Deprecated. TODO: Remove route.
 def post_userCon_loginDo():
     email, pw = bu.unpack_jdata("email pw")  # <-- TODO: 'rememberMe'
     user = userMod.getUserByEmail(email)
@@ -59,6 +62,71 @@ def post_userCon_loginDo():
         return bu.abort("Login failed due to email/password mismatch. Please retry.")
     # ==> SUCCESS. User can log in.
     return auth.sendAuthSuccessResponse(user)
+
+
+def sendMagicLink(user, token):
+    emailer.send(
+        toList=[user.email],
+        subject="ZapFeedback Login Link",
+        body=f"""Hi {user.fname},\n\nHere's your login link:\n
+        {K.SITE_URL}/userCon/verifyMagiLogin/{user._id}/{token}""",
+        subtype="plain",
+    )
+
+
+@app.post("/userCon/startMagiLogin")
+def post_userCon_startMagiLogin():
+    email = bu.unpack_jdata("email")[0]
+    user = userMod.getUserByEmail(email)
+    SUCCESS = {"status": "success"}
+    NOT_FOUND = SUCCESS  # <-- Mitigates user enumeration
+    if not user:
+        time.sleep(2 + random.random() * 3)
+        print(f"No such user: {email}")
+        return NOT_FOUND
+    # ==> User found
+    print(f"User found: {email}")
+    token = secrets.token_urlsafe()
+    magitok = magitokMod.buildMagitok(user._id, token)
+    magitokMod.upsertMagitok(magitok)
+    sendMagicLink(user, token)
+    return SUCCESS
+
+
+@app.get("/userCon/verifyMagiLogin/<magitokId>/<token>")
+def get_userCon_verifyMagiLogin(magitokId, token):
+    magitok = magitokMod.getMagitok(magitokId)
+    REDO = " Please visit /login to restart the log in process."
+    ASK_ADMIN = " Please contact your admin for help."
+    # ^-- Leading space in both above constants.
+    if not magitok:
+        return bu.abort("No such login link." + REDO)
+    # ==> Magitok Found
+    expiresAt = magitok.issuedAt + utils.minutes_to_ms(15)
+    if expiresAt < utils.now():
+        # Note: Not deleting magitok here, to aid w/ testing.
+        return bu.abort("Login link expired." + REDO)
+    # ==> Magitok Not Yet Expired
+    if not utils.checkPw(token, magitok.hToken):
+        return bu.abort("Incorrect login link." + REDO)
+    # ==> Token Matches
+    user = userMod.getUser({"_id": magitokId})
+    assert user
+    if not user.isVerified:
+        return bu.abort("Unconfirmed account." + ASK_ADMIN)
+    # ==> User is verified.
+    if user.isDeactivated:
+        return bu.abort("Account deactivated." + ASK_ADMIN)
+    # ==> Login successful!
+    magitokMod.deleteMagitok(magitok)  # <-- Delete OTP
+    auth.sendAuthSuccessResponse(user)  # <-- Sets cookies.
+    # TODO: Check if bu.redirect() retains set cookies.
+    dashUrl = f"{K.SITE_URL}/front/dash.html"
+    return f"""
+        <h2>Redirecting ...</h2>
+        <p>Please <a href="{dashUrl}">click here</a> if you aren't redirected soon.</p>
+        <script>window.location.href = "{dashUrl}";</script>
+    """
 
 
 @app.post("/userCon/detectLogin")
@@ -106,7 +174,7 @@ def genInviteLink(invitee, veriCode):
 def sendInviteEmail(invitee, veriCode):
     emailer.send(
         toList=[invitee.email],
-        subject="Polydojo Invitation Link",
+        subject="ZapFeedback Invitation Link",
         body=genInviteLink(invitee, veriCode),
         subtype="plain",
     )
