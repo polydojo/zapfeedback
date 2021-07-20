@@ -7,15 +7,14 @@ $(function () { misc.spinner.stop() })
 $('form.setupr').on('submit', async function (event) {
   event.preventDefault()
   const form = event.currentTarget
-  if (form.pw.value !== form.repeatPw.value) {
-    misc.alert("Passwords don't match.")
-    return null
+  if (form.email.value !== form.repeatEmail.value) {
+    await misc.alert("Repeated email address doesn't match the first.")
+    return null // Short ckt.
   }
   const dataToSend = {
     fname: form.fname.value,
     lname: form.lname.value,
-    email: form.email.value,
-    pw: form.pw.value
+    email: form.email.value
   }
   // console.log(dataToSend);
   misc.spinner.start('Setting up ...')

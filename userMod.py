@@ -20,19 +20,11 @@ import hashUp
 import stdAdpBuilder
 
 ############################################################
-# Assertions & indexing:                                   #
+# Assertions & prelims:                                    #
 ############################################################
 
 assert K.CURRENT_USER_V == 0
-db = dotsi.fy({"userBox": mongo.db.userBox})
-# Isolate
-db.userBox.create_index(
-    [
-        ("email", pymongo.ASCENDING),
-    ],
-    unique=True,
-    name=K.USER_EMAIL_INDEX_NAME,
-)
+db = dotsi.fy({"userBox": mongo.db.userBox})  # Isolate
 
 ############################################################
 # User building and validation:                            #

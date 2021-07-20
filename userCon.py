@@ -22,9 +22,7 @@ import emailer
 
 @app.post("/userCon/setupFirstUser")
 def post_userCon_setupFirstUser():
-    jdata = bu.get_jdata(ensure="email fname lname pw")
-    email, fname, lname, pw = utils.unpack(jdata, "email fname lname pw")
-    # print(email, fname, lname, pw);
+    email, fname, lname = bu.unpack_jdata("email fname lname")
     userCount = userMod.getUserCount()
     if userCount >= 1:
         return bu.abort("Setup already completed. Please visit /login to log in.")
@@ -33,34 +31,11 @@ def post_userCon_setupFirstUser():
         email=email,
         fname=fname,
         lname=lname,
-        pw=pw,
         isPrime=True,
         isVerified=True,
         isAdmin=True,
     )
     userMod.insertUser(user)
-    return auth.sendAuthSuccessResponse(user)
-
-
-@app.post("/userCon/loginDo")  # -- Deprecated. TODO: Remove route.
-def post_userCon_loginDo():
-    email, pw = bu.unpack_jdata("email pw")  # <-- TODO: 'rememberMe'
-    user = userMod.getUserByEmail(email)
-    # print("user=", user);
-    if not user:
-        # TODO: Reconsider this
-        # It's good UX, but susceptible to user enumeration.
-        return bu.abort("User not found. Please retry or contact your admin for help.")
-    # ==> User found.
-    if not user.isVerified:
-        return bu.abort("Unconfirmed account. Please contact your admin for help.")
-    # ==> User is verified.
-    if user.isDeactivated:
-        return bu.abort("Account deactivated. Please contact your admin for help.")
-    # ==> User is non-deactivated.
-    if not utils.checkPw(pw, user.hpw):
-        return bu.abort("Login failed due to email/password mismatch. Please retry.")
-    # ==> SUCCESS. User can log in.
     return auth.sendAuthSuccessResponse(user)
 
 
@@ -263,24 +238,18 @@ def post_userCon_fetchInvitedUserByVeriCode():
 
 @app.post("/userCon/acceptInvite")
 def post_userCon_acceptInvite():
-    j = bu.get_jdata("userId, email, fname, lname, pw, veriCode")
+    j = bu.get_jdata("userId email fname lname veriCode")
     user = getUnverifiedUserByVeriCode(j.userId, j.veriCode)
     assert all(
         [
             user._id == j.userId,
             user.email == j.email,
-            user.fname == j.fname,
-            user.lname == j.lname,
+            user.fname == j.fname,  # <--- TODO: Allow changing?
+            user.lname == j.lname,  # <--^
             utils.checkPw(j.veriCode, user.hVeriCode),
-            user.hpw == "",
         ]
     )
-    user.update(
-        {  # In-memory update.
-            "isVerified": True,
-            "hpw": utils.hashPw(j.pw),
-        }
-    )
+    user.update({"isVerified": True})  # In-memory update.
     userMod.replaceUser(user)
     return auth.sendAuthSuccessResponse(user)
 

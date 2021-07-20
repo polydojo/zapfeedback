@@ -36,17 +36,12 @@ const fetchInvitee = async function () {
 $('form.joinr').on('submit', async function (event) {
   event.preventDefault()
   const form = event.currentTarget
-  if (form.pw.value !== form.repeatPw.value) {
-    misc.alert("Passwords don't match.")
-    return null
-  }
   const dataToSend = {
     fname: form.fname.value,
     lname: form.lname.value,
     email: form.email.value,
     userId: form.userId.value,
-    veriCode: form.veriCode.value,
-    pw: form.pw.value
+    veriCode: form.veriCode.value
   }
   console.log(dataToSend)
   misc.spinner.start('Joining ...')

@@ -56,19 +56,20 @@
         <div class="form-group">
             <label>Email Address</label>
             <input type="email" name="email" class="form-control" placeholder="" readonly required>
-            <!-- [hidden] userId: -->
+            <!-- [hidden] userId & veriCode -->
             <input type="hidden" name="userId" class="d-none" placeholder="" required>
+            <input type="hidden" name="veriCode" class="d-none" placeholder="" required>
         </div>
+        <!--
         <div class="form-group">
             <label>Create Password</label>
             <input type="password" name="pw" class="form-control" minlength="12" autocomplete="new-password" required>
-            <!-- [hidden] veriCode: -->
-            <input type="hidden" name="veriCode" class="d-none" placeholder="" required>
         </div>
         <div class="form-group">
             <label>Repeat Password</label>
             <input type="password" name="repeatPw" class="form-control" minlength="12" autocomplete="new-password" required>
         </div>
+        -->
         <div class="form-group">
             <button class="btn btn-primary px-4">Submit</button>
         </div>
