@@ -23,7 +23,7 @@ import stdAdpBuilder
 # Assertions & prelims:                                    #
 ############################################################
 
-assert K.CURRENT_USER_V == 0
+assert K.CURRENT_USER_V == 1
 db = dotsi.fy({"userBox": mongo.db.userBox})  # Isolate
 
 ############################################################
@@ -40,23 +40,25 @@ _validateUserFormat = vf.dictOf(
         "_id": utils.isObjectId,
         "_v": lambda x: x == K.CURRENT_USER_V,
         #
-        # Intro'd in _v0:
+        ## Intro'd in _v0:
         "fname": vf.typeIs(str),
         "lname": vf.typeIs(str),
         "email": vf.allOf(
             vf.patternIs(K.EMAIL_RE),
             lambda x: x == x.lower(),
         ),
-        "hpw": vf.typeIs(str),  # Hashed PW
+        # -- "hpw": vf.typeIs(str),  # Hashed PW,             -- Removed in _v1
         "createdAt": utils.isInty,
         "isVerified": vf.typeIs(bool),
         "hVeriCode": vf.typeIs(str),
         "inviterId": lambda x: x == "" or utils.isObjectId(x),
         "isDeactivated": vf.typeIs(bool),
-        "hResetPw": vf.typeIs(str),  # Hashed Reset-PW
-        "resetPwExpiresAt": utils.isInty,
+        # -- "hResetPw": vf.typeIs(str),  # Hashed Reset-PW,  -- Removed in _v1
+        # -- "resetPwExpiresAt": utils.isInty,                -- Removed in _v1
         "isAdmin": vf.typeIs(bool),  # Flag for any admin
         "isPrime": vf.typeIs(bool),  # Flag for primary admin
+        #
+        ## Intro'd in _v1: No new props.
     },
     extraKeysOk=True,
 )
@@ -80,7 +82,7 @@ def buildUser(
     veriCode=None,
     isAdmin=False,
 ):
-    assert K.CURRENT_USER_V == 0
+    assert K.CURRENT_USER_V == 1
     assert fname and email
     assert type(fname) == type(email) == str and "@" in email
     userId = utils.objectId()
@@ -91,31 +93,29 @@ def buildUser(
             "_id": userId,
             "_v": K.CURRENT_USER_V,
             #
-            # Intro'd in _v0:
-            #
+            ## Intro'd in _v0:
             "fname": fname,
             "lname": lname,
             "email": email,
-            "hpw": hpw,
+            # -- "hpw": hpw,            -- Removed in _v1
             "createdAt": utils.now(),
             "isVerified": isVerified,
             "hVeriCode": utils.hashPw(veriCode),
             "inviterId": inviterId,
             "isDeactivated": False,
-            "hResetPw": "",
-            "resetPwExpiresAt": 0,
+            # -- "hResetPw": "",        -- Removed in _v1
+            # -- "resetPwExpiresAt": 0, -- Removed in _v1
             "isAdmin": isAdmin,
             "isPrime": isPrime,
+            #
+            ## Intro'd in _v1: No new props.
         }
     )
 
 
 def snipUser(user):
-    sensitiveKeyList = utils.readKeyz(
-        """
-        hpw, hVeriCode, hResetPw, resetPwExpiresAt,
-    """
-    )
+    sensitiveKeyList = ["hVeriCode"]
+    # Note: Use utils.readKeyz(.) in case of multiple keys.
     return utils.pick(user, lambda k: k not in sensitiveKeyList)
 
 
@@ -130,14 +130,24 @@ userAdp = stdAdpBuilder.buildStdAdp(
     func_validateFoo=validateUser,
 )
 
+
+@userAdp.addStepAdapter
+def stepAdapterCore_from_0_to_1(userY):  # NON-lambda func.
+    # user._v: 0 --> 1
+    # Removed:
+    #   - foo, hResetPw, resetPwExpiresAt
+    for key in ["hpw", "hResetPw", "resetPwExpiresAt"]:
+        userY.pop(key)
+
+
 # @userAdp.addStepAdapter
-# def stepAdapterCore_from_X_to_Y (userY):    # NON-lambda func.
+# def stepAdapterCore_from_X_to_Y(userY):  # NON-lambda func.
 #    # user._v: X --> Y
 #    # Added:
 #    #   + foo
 #    userY.update({
 #        "foo": "foobar",
-#    });
+#    })
 
 assert userAdp.getStepCount() == K.CURRENT_USER_V
 

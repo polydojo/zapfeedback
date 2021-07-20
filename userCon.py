@@ -55,9 +55,9 @@ def post_userCon_startMagiLogin():
     user = userMod.getUserByEmail(email)
     SUCCESS = {"status": "success"}
     NOT_FOUND = SUCCESS  # <-- Mitigates user enumeration
-    if not user:
+    if not (user and user.isVerified):
         time.sleep(2 + random.random() * 3)
-        print(f"No such user: {email}")
+        print(f"No such verified user: {email}")
         return NOT_FOUND
     # ==> User found
     print(f"User found: {email}")
