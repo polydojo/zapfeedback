@@ -17,7 +17,6 @@
 /* START .container */
     body.container, div.container {
         max-width: 760px; /* 760 < 768; also: 760 - (15 + 15) = 730 = 728 + (1 + 1);    Was: 720px;*/
-        /* XXX:Note: Tmp/for prototyping. */
     }
 /* END .container */
 

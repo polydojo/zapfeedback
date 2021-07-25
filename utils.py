@@ -158,6 +158,7 @@ b64_str_to_str = lambda s, enc="utf8": b64_bytes_to_str(s.encode(enc))
 # 'foo'  --str_to_base64_bytes--> b'Zm9v' --> 'Zm9v'
 # 'Zm9v' --.enode--> b'Zm9v' --b64_bytes_to_str--> 'foo'
 
+
 # URL Related: :::::::::::::::::::::::::::::::::::::::::::::
 
 quote = lambda s: urllib.parse.quote(s, safe="")

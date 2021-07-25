@@ -75,7 +75,6 @@ def buildUser(
     email,
     fname,
     lname="",
-    pw="",
     isPrime=False,
     isVerified=False,
     inviterId="",
@@ -86,7 +85,6 @@ def buildUser(
     assert fname and email
     assert type(fname) == type(email) == str and "@" in email
     userId = utils.objectId()
-    hpw = utils.hashPw(pw) if pw else ""
     veriCode = veriCode or genVeriCode()
     return dotsi.fy(
         {

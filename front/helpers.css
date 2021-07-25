@@ -195,7 +195,7 @@ ol.indent2em,  ol.someIndnet { margin-left: 0; padding-left: 2em; }             
 .underline { text-decoration: underline; }
 .noUnderline, a.noUnderline:hover { text-decoration: none; }
 .strike, .strikethrough, .lineThrough { text-decoration: line-through; }
-.italic { font-style: italic; }
+.italic, .italics { font-style: italic; }
 .monospace { font-family: monospace; }
 .monaco { font-family: Monaco, Consolas, "Courier New", monospace; }
 .courier { font-family: Courier, monospace; }

@@ -55,18 +55,19 @@ def validateXCsrfToken(xCsrfToken, userId):
 ############################################################
 
 
-def sendAuthSuccessResponse(user, rememberMe=False):
-    maxAge = None
-    # Assumption
+def setLoginSuccessCookies(user, rememberMe=False):
+    maxAge = None  # Assumption
     if rememberMe:  # Correction
         maxAge = K.REMEMBER_ME_DAY_COUNT * 24 * 60 * 60
-        # N days * 24 hrs * 60 mins * 60 sec => N days in sec
+        # ^-- N days * 24 hrs * 60 mins * 60 sec => N days in sec
+    ### 1st cookie, 'userId':
     signWrapped = bu.setCookie(
         name="userId",
         data=user._id,
         secret=K.AUTH_COOKIE_SECRET,
         maxAge=maxAge,
     )
+    ### 2nd cookie, 'xCsrfToken':
     xCsrfToken = genXCsrfToken(user._id)
     bu.setUnsignedCookie(
         name="xCsrfToken",
@@ -74,6 +75,12 @@ def sendAuthSuccessResponse(user, rememberMe=False):
         httpOnly=False,
         maxAge=maxAge,
     )
+    return True
+
+
+def sendAuthSuccessResponse(user, rememberMe=False):
+    # -- Deprecated, use setLoginSuccessCookies() instead.
+    setLoginSuccessCookies(user, rememberMe)
     return {"user": userMod.snipUser(user)}
 
 
